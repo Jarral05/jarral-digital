@@ -3,6 +3,28 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.6.2] - 2026-10-23
+
+### Fixed
+- **Sites could not see theme updates.** `.gitignore` had `vendor/`, which
+  also matched the update library's own `lib/plugin-update-checker/vendor/`,
+  so Parsedown and the readme parser were never committed and never reached a
+  release zip. When the latest GitHub release has notes, the update check
+  formats them with Parsedown, hit `Class "Parsedown" not found`, and stopped
+  before recording the update. The rule is now `/vendor/`, top level only, and
+  the library ships complete. Confirmed on the live site: `vendor/Parsedown.php`
+  returned 404.
+- **Theme releases no longer carry release notes.** Sites on 1.6.1 or earlier
+  still have the incomplete library, and their check only survives a release
+  with no notes. Without notes they find 1.6.2 and update themselves.
+  `CHANGELOG.md` is the record instead.
+- **Body text was never in IBM Plex Sans.** The files were named
+  `ibm-plex-sans-regular.woff2` and `ibm-plex-sans-latin-600.woff2`, but
+  `main.css` and the preload in `inc/enqueue.php` ask for
+  `ibm-plex-sans-400.woff2` and `ibm-plex-sans-600.woff2`. Both returned 404
+  on the live site, so regular and semibold text fell back to the system font.
+  Renamed to match.
+
 ## [1.6.1] - 2026-10-22
 
 ### Updated
