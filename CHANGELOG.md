@@ -3,7 +3,26 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
-## [Unreleased]
+## [1.6.3] - 2026-10-23
+
+### Changed
+- **Homepage services are a card grid.** The six services were stacked rows;
+  they are now white cards, three across (two at 901–1100px, one below
+  900px), the same shape as the "What you get" cards on the service pages.
+  `margin-top:auto` on the price pins it to the bottom of each card, so prices
+  share one line across a row however long the description is. The 768px row
+  layout and the hover arrow are gone. The Services page list and the 404 page
+  use the same classes, so they change with it.
+- **About facts are a panel.** The `.who-facts span` rules never matched,
+  because `about.php` writes `<dt>` and `<dd>`: the labels never got their
+  colour and the values never got their weight or alignment. The facts now sit
+  in a bordered, rounded panel, labels in `#3C6B5C`, values bold, right-aligned
+  and pine. `.spec,.who-facts{margin:0}` was also cancelling the list's top
+  margin; it now applies to `.spec` only. The photo has rounded corners, and
+  the section stacks below 900px instead of at 768px.
+- **Homepage contact section has two columns.** Heading, reply-time line, four
+  promises and an email line on the left, the form on the right; stacked below
+  900px. The email address comes from `jd_contact_email()`.
 
 ### Fixed
 - **The Services page could not be reached from the menu.** A top-level item
