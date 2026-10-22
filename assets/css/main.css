@@ -108,14 +108,31 @@ button{font-family:inherit}
 .prob-close{margin-top:36px;padding:24px;background:var(--pine-tint);font-size:17px;max-width:var(--measure)}
 
 /* ---- services ---- */
-.svc{border-top:1px solid var(--line)}
-.svc-row{display:grid;grid-template-columns:26px 1fr;column-gap:16px;padding:24px 0;border-bottom:1px solid var(--line);text-decoration:none}
-.svc-ico{padding-top:3px}
-.svc-ico svg{width:24px;height:24px;display:block}
+/* Service cards: the same shape as .get on the service pages. */
+.svc{border-top:0;display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.svc-row{display:flex;flex-direction:column;grid-template-columns:none;
+  column-gap:0;padding:22px;border-bottom:0;background:#fff;
+  border:1px solid var(--line);border-radius:var(--r-md);text-decoration:none;
+  transition:border-color .18s ease,transform .18s ease}
+.svc-row:hover{background:#fff;border-color:var(--pine);
+  transform:translateY(-2px)}
 .svc-row:hover .svc-name{color:var(--pine)}
-.svc-name{font-family:var(--font-head);font-size:20px;font-weight:600;margin-bottom:6px}
-.svc-desc{color:var(--ink-soft);font-size:15px;max-width:56ch;margin-bottom:10px}
-.svc-price{font-size:14px;font-weight:600;color:var(--pine)}
+.svc-row::after{display:none}
+.svc-ico{display:block;padding-top:0;width:30px;height:30px;
+  color:var(--pine);margin-bottom:14px}
+.svc-ico svg{display:block;width:100%;height:100%}
+.svc-name{font-family:var(--font-head);font-size:17px;font-weight:600;margin-bottom:7px}
+.svc-desc{color:var(--ink-soft);font-size:14.5px;max-width:none;margin-bottom:12px;line-height:1.6}
+/* margin-top:auto pins the price to the bottom of each card, so a row shares
+   one baseline however long the description is. Do not remove it. */
+.svc-price{font-size:13.5px;font-weight:600;color:var(--pine);margin-top:auto;
+  padding-top:12px;border-top:1px solid var(--line)}
+
+@media (max-width:900px){ .svc{grid-template-columns:1fr} }
+@media (min-width:901px) and (max-width:1100px){
+  .svc{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 
 /* ---- estimator ---- */
 .est{background:var(--pine-deep);border:1px solid var(--line-dark);padding:24px}
@@ -161,15 +178,23 @@ button{font-family:inherit}
 .result p{font-size:15px;color:var(--ink-soft)}
 
 /* ---- who ---- */
-.who{display:grid;gap:26px;align-items:start}
-.who-photo{aspect-ratio:4/5;background:var(--pine-tint);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;color:#5A6861;overflow:hidden;max-width:300px}
+.who{display:grid;grid-template-columns:300px minmax(0,1fr);gap:48px;align-items:start}
+.who-photo{aspect-ratio:4/5;background:var(--pine-tint);border:1px solid var(--line);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:13px;color:#5A6861;overflow:hidden;max-width:none}
 .who-photo img{width:100%;height:100%;object-fit:cover}
 .who h2{font-size:27px;font-weight:600;margin-bottom:14px}
 .who p{color:var(--ink-soft);max-width:56ch;margin-bottom:14px}
-.who-facts{border-top:1px solid var(--line);margin-top:20px}
-.who-facts div{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
-.who-facts span:first-child{color:var(--ink-soft)}
-.who-facts span:last-child{font-weight:500;text-align:right}
+.who-facts{border:1px solid #C2D6CC;border-radius:var(--r-md);
+  padding:4px 18px;background:rgba(255,255,255,.55);margin-top:24px}
+.who-facts div{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-bottom:1px solid #C2D6CC}
+.who-facts div:last-child{border-bottom:0}
+.who-facts dt{color:#3C6B5C;font-size:14.5px}
+.who-facts dd{margin:0;font-weight:600;font-size:14.5px;
+  text-align:right;color:var(--pine)}
+
+@media (max-width:900px){
+  .who{grid-template-columns:1fr;gap:28px}
+  .who-photo{max-width:260px}
+}
 
 /* ---- faq ---- */
 .faq{border-top:1px solid var(--line);max-width:760px}
@@ -243,10 +268,7 @@ button{font-family:inherit}
   .spec-row{padding:16px 0}
   .form-row{grid-template-columns:1fr 1fr}
   .foot-cols{grid-template-columns:repeat(3,1fr)}
-  .svc-row{grid-template-columns:26px 1fr auto;align-items:start;column-gap:20px}
-  .svc-price{text-align:right;white-space:nowrap;padding-top:4px}
   .est{padding:32px}
-  .who{grid-template-columns:300px 1fr;gap:40px}
   .who h2{font-size:34px}
 }
 @media (min-width:1024px){
@@ -286,7 +308,7 @@ html{scroll-padding-top:76px}
 .foot ul{list-style:none;display:grid;gap:8px;margin:0;padding:0}
 
 /* Definition lists used for the spec bar and the about facts */
-.spec,.who-facts{margin:0}
+.spec{margin:0}
 .spec-row dt,.spec-row dd,.who-facts dt,.who-facts dd{margin:0}
 
 /* Blog and page content */
@@ -404,22 +426,6 @@ html{scroll-padding-top:76px}
 .spec-row:nth-child(5){animation-delay:.42s}
 .spec-row:nth-child(6){animation-delay:.46s}
 
-/* --- Service rows: the arrow is an affordance, not decoration ------------ */
-.svc-row{position:relative;transition:background .18s ease}
-.svc-row:hover{background:rgba(20,69,58,.04)}
-.svc-row::after{
-  content:"";
-  position:absolute;right:2px;top:50%;
-  width:16px;height:16px;margin-top:-8px;
-  background:currentColor;color:var(--pine);
-  opacity:0;transform:translateX(-6px);
-  transition:opacity .18s ease,transform .18s ease;
-  -webkit-mask:no-repeat center/16px url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2'%3E%3Cpath d='M5 12h13M12 5l7 7-7 7'/%3E%3C/svg%3E");
-  mask:no-repeat center/16px url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2'%3E%3Cpath d='M5 12h13M12 5l7 7-7 7'/%3E%3C/svg%3E");
-}
-.svc-row:hover::after,.svc-row:focus-visible::after{opacity:1;transform:none}
-@media (min-width:768px){.svc-row{padding-right:28px}}
-
 /* --- Work cards: a border change, not a lift ---------------------------- */
 /* A lift needs a shadow, and a shadow on a flat design looks bolted on. */
 .work-card{transition:border-color .2s ease}
@@ -529,6 +535,16 @@ html{scroll-padding-top:76px}
 .jd-mega-desc{display:block;font-size:13px;line-height:1.5;color:var(--on-pine);margin-bottom:6px}
 .jd-mega-price{display:block;font-size:12px;font-weight:600;color:#8FBFAD}
 
+/* Link to the top-level page itself (e.g. /services/). The top-level item is
+   a button that opens this panel, so it cannot also be the link. The `a` in
+   the selector is what lets it outrank `.nav-list a:not(.btn)`. */
+.jd-mega a.jd-mega-all{
+  display:inline-block;margin-top:14px;padding:10px 12px;border-radius:4px;
+  font-size:14px;font-weight:600;color:var(--bone);text-decoration:none;
+}
+.jd-mega-all:hover,.jd-mega-all:focus-visible{background:rgba(247,247,244,.07)}
+.jd-mega-all:focus-visible{outline:2px solid #8FBFAD;outline-offset:-2px}
+
 /* Panel entrance. One short movement, nothing decorative. */
 @keyframes jd-mega-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 .jd-mega:not([hidden]){animation:jd-mega-in .18s ease-out both}
@@ -562,13 +578,19 @@ html{scroll-padding-top:76px}
 }
 .drawer-list .jd-mega-inner{max-width:none;margin:0;padding:0;min-height:0;overflow:hidden}
 .drawer-list .jd-mega-grid{display:block}
-.drawer-list .jd-mega-link{
+/* `a` in these two selectors: without it `.drawer a:not(.btn)` outranks them
+   and the submenu links lose their 38px indent. */
+.drawer-list a.jd-mega-link{
   padding:13px 20px 13px 38px;border-bottom:1px solid var(--line-dark);border-radius:0;
 }
 .drawer-list .jd-mega-desc,
 .drawer-list .jd-mega-price,
 .drawer-list .jd-mega-ico{display:none}
 .drawer-list .jd-mega-name{margin:0;font-size:15px;font-weight:400;font-family:var(--font-body)}
+.drawer-list a.jd-mega-all{
+  display:block;margin:0;padding:13px 20px 13px 38px;
+  border-bottom:1px solid var(--line-dark);border-radius:0;font-size:15px;
+}
 .drawer-list .jd-top-link{
   display:flex;justify-content:space-between;align-items:center;
   width:100%;text-align:left;
@@ -641,3 +663,25 @@ html{scroll-padding-top:76px}
 @media (min-width:901px) and (max-width:1100px){
   .gets{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* ---- homepage contact: copy beside the form ---- */
+.contact-cols{display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
+  gap:56px;align-items:start}
+.contact-copy h2{font-size:30px;font-weight:600;margin-bottom:16px;
+  max-width:16ch}
+.contact-copy .lede{font-size:17px;color:var(--on-pine);
+  margin-bottom:26px;max-width:46ch}
+.promise{list-style:none;margin:0 0 26px;padding:0;
+  border-top:1px solid var(--line-dark)}
+.promise li{padding:14px 0 14px 28px;
+  border-bottom:1px solid var(--line-dark);position:relative;
+  font-size:15px;color:var(--on-pine);line-height:1.55}
+.promise li strong{display:block;color:var(--bone);font-weight:600;
+  margin-bottom:2px}
+.promise li::before{content:"";position:absolute;left:2px;top:19px;
+  width:9px;height:9px;border-radius:50%;background:var(--bone)}
+.contact-meta{font-size:14.5px;color:var(--on-pine);line-height:1.7}
+.contact-meta a{color:var(--bone);text-underline-offset:3px}
+
+@media (max-width:900px){ .contact-cols{grid-template-columns:1fr;gap:34px} }

@@ -44,6 +44,13 @@ class JD_Mega_Walker extends Walker_Nav_Menu {
 	private $lookup = null;
 
 	/**
+	 * The top-level item whose panel is being rendered, if it links anywhere.
+	 *
+	 * @var array{url:string,title:string}|null
+	 */
+	private $parent_link = null;
+
+	/**
 	 * Build the path => service map.
 	 *
 	 * @return array<string,array>
@@ -101,7 +108,20 @@ class JD_Mega_Walker extends Walker_Nav_Menu {
 	 */
 	public function end_lvl( &$output, $depth = 0, $args = null ) {
 		if ( 0 === $depth ) {
-			$output .= '</ul></div></div>';
+			$output .= '</ul>';
+
+			// The top-level item is a button that opens this panel, so the
+			// page it points at (e.g. /services/) needs its own link in here.
+			if ( $this->parent_link ) {
+				$output .= sprintf(
+					'<a class="jd-mega-all" href="%s">%s<span aria-hidden="true"> &rarr;</span></a>',
+					esc_url( $this->parent_link['url'] ),
+					/* translators: %s: top-level menu item in lowercase, e.g. "services" */
+					esc_html( sprintf( __( 'All %s', 'jarral-digital' ), $this->parent_link['title'] ) )
+				);
+			}
+
+			$output .= '</div></div>';
 		} else {
 			$output .= '</ul>';
 		}
@@ -129,6 +149,10 @@ class JD_Mega_Walker extends Walker_Nav_Menu {
 			$output .= '<li class="' . esc_attr( $classes ) . '">';
 
 			if ( $has_children ) {
+				// Remembered for end_lvl(). A "#" placeholder links nowhere.
+				$lower             = function_exists( 'mb_strtolower' ) ? mb_strtolower( $title ) : strtolower( $title );
+				$this->parent_link = ( '#' !== $url ) ? array( 'url' => $url, 'title' => $lower ) : null;
+
 				/*
 				 * A real <button> rather than a styled link. The panel is a
 				 * disclosure, and a button is what screen readers and keyboards

@@ -19,10 +19,8 @@ defined( 'ABSPATH' ) || exit;
 			<?php foreach ( jd_get_services() as $s ) : ?>
 				<a class="svc-row" href="<?php echo esc_url( $s['url'] ); ?>">
 					<span class="svc-ico"><?php jd_icon( 'icon-' . $s['icon'] ); ?></span>
-					<div>
-						<div class="svc-name"><?php echo esc_html( $s['name'] ); ?></div>
-						<div class="svc-desc"><?php echo esc_html( $s['desc'] ); ?></div>
-					</div>
+					<div class="svc-name"><?php echo esc_html( $s['name'] ); ?></div>
+					<div class="svc-desc"><?php echo esc_html( $s['desc'] ); ?></div>
 					<div class="svc-price"><?php echo esc_html( $s['price'] ); ?></div>
 				</a>
 			<?php endforeach; ?>

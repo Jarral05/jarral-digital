@@ -3,6 +3,19 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+- **The Services page could not be reached from the menu.** A top-level item
+  with children renders as a button that opens the mega panel, so the URL set
+  on it in Appearance > Menus was never used. The panel now ends with an
+  "All services →" link to that URL, in the desktop panel and the mobile
+  drawer. Any top-level item with children gets one, labelled from its title;
+  a `#` placeholder gets none.
+- **Mobile submenu links had lost their indent.** `.drawer a:not(.btn)`
+  outranked `.drawer-list .jd-mega-link`, so the 38px indent never applied
+  and sub-items sat flush with the top level. The selector now includes `a`.
+
 ## [1.6.2] - 2026-10-23
 
 ### Fixed
