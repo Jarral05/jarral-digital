@@ -3,6 +3,17 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.6.1] - 2026-10-22
+
+### Updated
+- **Block patterns for service pages**, under a new "Jarral Digital" category
+  in the inserter: hero, details with fact card, what you get, steps, and
+  enquiry form. Each is a single Custom HTML block rather than core blocks,
+  because core blocks add their own wrappers and class names, and the
+  stylesheet targets these sections by exact class. All copy is placeholder
+  text. The enquiry form pattern's `service="Service name"` tags every enquiry
+  it sends, so replace it on each page. 
+
 ## [1.6.0] - 2026-10-22
 
 ### Added
