@@ -3,6 +3,19 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.5.2] - 2026-10-22
+
+### Fixed
+- The theme never called `enableReleaseAssets()`, unlike both plugins, so
+  sites downloaded GitHub's auto-generated source archive — carrying
+  `.github/` and `.gitignore` onto production.
+- Removed the branch fallback from update detection, so an untagged version
+  bump on `main` is no longer served as an update. The theme filter name
+  carries a `_theme` suffix the plugin names do not.
+
+### Added
+- `php -l` runs over every PHP file before the zip is built.
+
 ## [1.5.1] - 2026-10-22
 
 ### Fixed
