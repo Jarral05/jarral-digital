@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit; // Block direct access to this file.
 
-define( 'JD_VERSION', '1.5.2' );
+define( 'JD_VERSION', '1.6.0' );
 define( 'JD_DIR', get_template_directory() );
 define( 'JD_URI', get_template_directory_uri() );
 
@@ -19,5 +19,6 @@ require_once JD_DIR . '/inc/enqueue.php';
 require_once JD_DIR . '/inc/security.php';
 require_once JD_DIR . '/inc/seo.php';
 require_once JD_DIR . '/inc/template-tags.php';
+require_once JD_DIR . '/inc/patterns.php';
 require_once JD_DIR . '/inc/nav-walker.php';
 require_once JD_DIR . '/inc/updates.php';

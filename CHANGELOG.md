@@ -3,6 +3,53 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.6.0] - 2026-10-22
+
+### Added
+- **Block patterns for service pages**, under a new "Jarral Digital" category
+  in the inserter: hero, details with fact card, what you get, steps, and
+  enquiry form. Each is a single Custom HTML block rather than core blocks,
+  because core blocks add their own wrappers and class names, and the
+  stylesheet targets these sections by exact class. All copy is placeholder
+  text. The enquiry form pattern's `service="Service name"` tags every enquiry
+  it sends, so replace it on each page.
+- **Pages built from those patterns now print full width.** `page.php`
+  wrapped all content in a band, a `.wrap` and the 68ch `.prose` column under
+  the page title. That squeezed every section into the text column, put a
+  second `<h1>` above the hero's own, and let `.prose` styles leak in - the
+  hero eyebrow rendered at about 1.3:1 on pine. `jd_is_pattern_page()` checks
+  the content for a `<section>` with a `svc-hero` or `band` class. Matching
+  pages print bare and plain pages keep the wrapper, for existing and future
+  pages alike, with nothing to set in the editor.
+- A "Service page" template that always prints the content bare, for pages
+  the check misses. A page holding only the enquiry form is one: its band only
+  exists once the shortcode renders, so the saved content has no `<section>`.
+- Service page styles: `.svc-hero`, `.cols` with a sticky `.factcard`, and the
+  `.gets` card grid, built from the existing colour tokens.
+- A radius scale in `:root`: `--r-sm` 6px, `--r-md` 12px, `--r-lg` 16px
+  (`--r-lg` is not used yet).
+
+### Changed
+- Buttons, chips, filters and form fields use `--r-sm` instead of 4px. Form
+  notes and the estimate card use `--r-md`. The skip link and the top-level
+  focus ring keep their own radii on purpose. `.burger` and `.jd-mega-link`
+  are still 4px.
+- The contact form sits on a card: white with a `--line` border on light
+  pages, and a 5% white wash on the dark band. Not `--pine-deep`, because the
+  dark fields are already that colour and would vanish into the panel. The
+  card's padding comes out of the form's `max-width`, so fields are 58px
+  narrower: 502px, or 662px inside a shortcode block.
+
+### Verified this release
+- `php -l` clean on PHP 8.2.27 for every changed file.
+- Pattern code executed outside WordPress with stand-ins for the WP functions
+  it calls. 39 checks passed: registration, one block per pattern,
+  well-formed markup, six cards with icons, four numbered steps, and page
+  detection true for the four section patterns and false for the form pattern
+  and a plain page.
+- Not yet seen in a browser or the block editor.
+
+
 ## [1.5.2] - 2026-10-22
 
 ### Fixed

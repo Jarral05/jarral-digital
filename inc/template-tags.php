@@ -240,3 +240,19 @@ function jd_contact_email() {
 
 	return (string) get_option( 'admin_email' );
 }
+
+/**
+ * Whether a page is built from the full-width section patterns.
+ *
+ * The patterns in inc/patterns.php bring their own bands and .wrap, so a page
+ * made from them has to be printed bare. Inside page.php's band, wrap and
+ * .prose, every section is squeezed into the 68ch text column and picks up the
+ * prose type styles. A plain page has no such section and keeps the wrapper.
+ *
+ * @param int|WP_Post|null $post Page to check. Defaults to the current post.
+ * @return bool
+ */
+function jd_is_pattern_page( $post = null ) {
+	$content = (string) get_post_field( 'post_content', $post );
+	return 1 === preg_match( '/<section\b[^>]*\bclass="[^"]*\b(?:svc-hero|band)\b/', $content );
+}

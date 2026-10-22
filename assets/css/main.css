@@ -15,6 +15,7 @@
   --line:#D8DBD6; --line-dark:#2F5B4F;
   --on-pine:#C3D4CC; --spec-key:#93AFA5;
   --wrap:1120px; --measure:64ch;
+  --r-sm:6px; --r-md:12px; --r-lg:16px;
 
   /* Font stacks. The first name is the self-hosted file; everything after it
      is already installed on the visitor's machine. If the woff2 files are
@@ -37,7 +38,7 @@ button{font-family:inherit}
 .band-tint{background:var(--pine-tint)}
 .band-dark{background:var(--pine);color:var(--bone)}
 
-.btn{display:inline-block;font-size:15px;font-weight:600;line-height:1;padding:15px 22px;border-radius:4px;text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:background .15s ease,color .15s ease}
+.btn{display:inline-block;font-size:15px;font-weight:600;line-height:1;padding:15px 22px;border-radius:var(--r-sm);text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:background .15s ease,color .15s ease}
 .btn-solid{background:var(--pine);color:var(--bone);border-color:var(--pine)}
 .btn-solid:hover{background:var(--pine-deep)}
 .btn-invert{background:var(--bone);color:var(--pine);border-color:var(--bone)}
@@ -121,7 +122,7 @@ button{font-family:inherit}
 .est-step{margin-bottom:26px}
 .est-label{font-size:14px;font-weight:600;color:var(--on-pine);margin-bottom:12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{background:transparent;border:1px solid var(--line-dark);color:var(--bone);border-radius:4px;padding:11px 14px;font-size:14px;cursor:pointer;transition:background .15s ease,border-color .15s ease}
+.chip{background:transparent;border:1px solid var(--line-dark);color:var(--bone);border-radius:var(--r-sm);padding:11px 14px;font-size:14px;cursor:pointer;transition:background .15s ease,border-color .15s ease}
 .chip:hover{border-color:#5E8A7C}
 .chip[aria-pressed="true"]{background:var(--bone);color:var(--pine);border-color:var(--bone);font-weight:600}
 .est-out{border-top:1px solid var(--line-dark);padding-top:22px;display:none}
@@ -132,7 +133,7 @@ button{font-family:inherit}
 
 /* ---- work ---- */
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
-.filter{background:transparent;border:1px solid var(--line);color:var(--ink-soft);border-radius:4px;padding:10px 14px;font-size:14px;cursor:pointer;transition:background .15s ease}
+.filter{background:transparent;border:1px solid var(--line);color:var(--ink-soft);border-radius:var(--r-sm);padding:10px 14px;font-size:14px;cursor:pointer;transition:background .15s ease}
 .filter:hover{border-color:var(--pine)}
 .filter[aria-pressed="true"]{background:var(--pine);color:var(--bone);border-color:var(--pine);font-weight:600}
 .work{display:grid;gap:20px}
@@ -189,7 +190,7 @@ button{font-family:inherit}
 .form{display:grid;gap:14px;max-width:560px;margin-top:28px}
 .field label{display:block;font-size:14px;font-weight:500;margin-bottom:6px;color:var(--ink-soft)}
 .field input,.field select,.field textarea{
-  width:100%;font-family:inherit;font-size:16px;padding:13px 14px;border-radius:4px;
+  width:100%;font-family:inherit;font-size:16px;padding:13px 14px;border-radius:var(--r-sm);
   border:1px solid var(--line);background:#fff;color:var(--ink);
 }
 .field textarea{min-height:120px;resize:vertical}
@@ -201,7 +202,14 @@ button{font-family:inherit}
 .form .btn-invert{background:var(--pine);color:var(--bone);border-color:var(--pine)}
 .form .btn-invert:hover{background:var(--pine-deep);color:var(--bone)}
 
+.form{background:#fff;border:1px solid var(--line);
+  border-radius:var(--r-md);padding:28px}
+
 /* ---- dark-section overrides: only inside .band-dark ---- */
+/* Not --pine-deep: the fields below are already that colour and would vanish
+   into the panel. A 5% white wash lifts it off the band instead. */
+.band-dark .form{background:rgba(255,255,255,.05);
+  border:1px solid var(--line-dark)}
 .band-dark .field label{color:var(--on-pine)}
 .band-dark .field input,
 .band-dark .field select,
@@ -310,7 +318,7 @@ html{scroll-padding-top:76px}
 .page-numbers.current{background:var(--pine);color:var(--bone);border-color:var(--pine)}
 
 /* Contact form, rendered by the Jarral Forms plugin */
-.jdf-note{padding:14px 16px;margin-bottom:18px;font-size:15px;border-radius:4px}
+.jdf-note{padding:14px 16px;margin-bottom:18px;font-size:15px;border-radius:var(--r-md)}
 .jdf-note-ok{background:var(--pine-tint);color:var(--pine);border:1px solid #A9C6B9}
 .jdf-note-bad{background:#FDECEA;color:#8A2015;border:1px solid #E8B4AE}
 .band-dark .jdf-note-ok{background:var(--bone);color:var(--pine);border:none}
@@ -325,7 +333,7 @@ html{scroll-padding-top:76px}
    the visitor could not see that it had. This panel shows it back to them, so
    the form confirms what they picked instead of asking them to trust it. */
 .jdf-quote{border:1px solid var(--line);border-left:3px solid var(--pine);
-  background:var(--pine-tint);padding:16px 18px;margin-bottom:22px;border-radius:4px}
+  background:var(--pine-tint);padding:16px 18px;margin-bottom:22px;border-radius:var(--r-md)}
 .jdf-quote-k{font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.14em;
   text-transform:uppercase;color:#3C6B5C;margin-bottom:8px}
 .jdf-quote-svc{font-family:var(--font-head);font-size:18px;font-weight:600;color:var(--pine);
@@ -582,4 +590,54 @@ html{scroll-padding-top:76px}
   .drawer-list .jd-mega,
   .drawer-list .jd-mega.is-open{transition:none}
   .drawer{scroll-behavior:auto}
+}
+
+/* ---- service page ---- */
+.svc-hero{background:var(--pine);color:var(--bone);padding-block:60px 54px}
+.svc-eyebrow{font-family:var(--font-head);font-size:12px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--spec-key);
+  margin-bottom:14px}
+.svc-hero h1{font-size:clamp(30px,4.4vw,44px);font-weight:600;
+  max-width:17ch;margin-bottom:18px}
+.svc-hero .lede{font-size:18px;color:var(--on-pine);max-width:56ch;
+  margin-bottom:26px}
+.svc-hero-meta{display:flex;flex-wrap:wrap;gap:12px 34px;
+  align-items:baseline;margin-bottom:30px}
+.svc-hero-price{font-family:var(--font-head);font-size:26px;font-weight:700;
+  letter-spacing:-.02em}
+.svc-hero-price span{font-size:14px;font-weight:500;color:var(--on-pine);
+  letter-spacing:0}
+.svc-hero-time{font-size:15px;color:var(--on-pine)}
+.svc-hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:56px;
+  align-items:start}
+.cols .prose{max-width:none}
+.factcard{position:sticky;top:90px;background:var(--pine-tint);
+  border:1px solid #C2D6CC;border-radius:var(--r-md);padding:24px}
+.factcard h2{font-family:var(--font-head);font-size:12px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:#3C6B5C;
+  margin-bottom:16px}
+.factrow{display:flex;justify-content:space-between;gap:16px;padding:11px 0;
+  border-bottom:1px solid #C2D6CC;font-size:14.5px}
+.factrow:last-of-type{border-bottom:0}
+.factrow dt{color:#3C6B5C}
+.factrow dd{margin:0;font-weight:600;color:var(--pine);text-align:right}
+.factcard .btn{display:block;text-align:center;margin-top:18px}
+
+.gets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.get{background:#fff;border:1px solid var(--line);
+  border-radius:var(--r-md);padding:22px}
+.get-ico{width:30px;height:30px;color:var(--pine);margin-bottom:14px}
+.get-ico svg{width:100%;height:100%}
+.get h3{font-size:17px;font-weight:600;margin-bottom:7px}
+.get p{font-size:14.5px;color:var(--ink-soft);line-height:1.6}
+
+@media (max-width:900px){
+  .cols{grid-template-columns:1fr;gap:34px}
+  .factcard{position:static}
+  .gets{grid-template-columns:1fr}
+}
+@media (min-width:901px) and (max-width:1100px){
+  .gets{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
