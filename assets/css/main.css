@@ -1,0 +1,585 @@
+/* ==========================================================================
+   Jarral Digital - main stylesheet
+   Self-hosted fonts. See assets/fonts/README.txt for how to add the files.
+   ========================================================================== */
+
+@font-face{font-family:"Space Grotesk";src:url("../fonts/space-grotesk-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Space Grotesk";src:url("../fonts/space-grotesk-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Sans";src:url("../fonts/ibm-plex-sans-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Sans";src:url("../fonts/ibm-plex-sans-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Sans";src:url("../fonts/ibm-plex-sans-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+
+:root{
+  --pine:#14453A; --pine-deep:#0E322A; --pine-tint:#E4EDE8;
+  --bone:#F7F7F4; --ink:#111512; --ink-soft:#4A524C;
+  --line:#D8DBD6; --line-dark:#2F5B4F;
+  --on-pine:#C3D4CC; --spec-key:#93AFA5;
+  --wrap:1120px; --measure:64ch;
+
+  /* Font stacks. The first name is the self-hosted file; everything after it
+     is already installed on the visitor's machine. If the woff2 files are
+     missing the site still looks deliberate - it simply renders in the
+     system UI face instead of Space Grotesk. Nothing breaks. */
+  --font-head:"Space Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI Variable Display","Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+  --font-body:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI Variable Text","Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:70px}
+body{font-family:var(--font-body);font-size:16px;line-height:1.65;color:var(--ink);background:var(--bone);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--font-head);line-height:1.12;letter-spacing:-0.02em}
+a{color:inherit} img{max-width:100%;display:block}
+button{font-family:inherit}
+:focus-visible{outline:3px solid #8FBFAD;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+.band{padding:56px 0}
+.band-tint{background:var(--pine-tint)}
+.band-dark{background:var(--pine);color:var(--bone)}
+
+.btn{display:inline-block;font-size:15px;font-weight:600;line-height:1;padding:15px 22px;border-radius:4px;text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:background .15s ease,color .15s ease}
+.btn-solid{background:var(--pine);color:var(--bone);border-color:var(--pine)}
+.btn-solid:hover{background:var(--pine-deep)}
+.btn-invert{background:var(--bone);color:var(--pine);border-color:var(--bone)}
+.btn-invert:hover{background:#fff}
+.btn-ghost-light{background:transparent;color:var(--bone);border-color:var(--line-dark)}
+.btn-ghost-light:hover{background:var(--pine-deep)}
+
+/* ---- nav (sticky) ---- */
+.nav{background:var(--pine);border-bottom:1px solid var(--line-dark);position:sticky;top:0;z-index:50}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{font-family:var(--font-head);font-weight:700;font-size:19px;color:var(--bone);text-decoration:none;letter-spacing:-0.02em;display:flex;align-items:center;gap:10px}
+.logo svg{width:28px;height:28px;flex-shrink:0}
+.nav-links{display:none}
+/* :not(.btn) matters. Without it this rule (0,0,1,1) outranks .btn-invert
+   (0,0,1,0) and repaints the header button's text in the muted nav colour,
+   which drops it to 1.44:1 against its own bone background. */
+.nav-links a:not(.btn){font-size:15px;color:var(--on-pine);text-decoration:none}
+.nav-links a:not(.btn):hover{color:var(--bone)}
+.burger{background:none;border:1px solid var(--line-dark);border-radius:4px;padding:9px 12px;color:var(--bone);font-size:14px;font-weight:500;cursor:pointer}
+.drawer{display:none;background:var(--pine-deep);border-top:1px solid var(--line-dark)}
+.drawer.open{display:block}
+/* :not(.btn) for the same reason as .nav-links above. Without it this rule
+   repaints the drawer's "Start a project" button in the muted nav colour and
+   gives it a border it should not have. */
+.drawer a:not(.btn){display:block;padding:15px 20px;color:var(--on-pine);text-decoration:none;border-bottom:1px solid var(--line-dark);font-size:16px}
+/* The drawer scrolls on its own rather than stretching the sticky nav past
+   the bottom of the screen. With six menu items, an expanded submenu, the
+   button and the contact line, the content runs to roughly 740px - taller
+   than an iPhone SE's 667px viewport, which left the button unreachable.
+
+   100dvh is the *dynamic* viewport height, so the figure stays correct as
+   mobile browser chrome slides in and out; the 100vh line above it is the
+   fallback for browsers that do not know dvh. overscroll-behavior stops a
+   flick at the end of the list from scrolling the page underneath. */
+.drawer{
+  max-height:calc(100vh - 66px);
+  max-height:calc(100dvh - 66px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+}
+.drawer-cta{display:block;margin:18px 20px 0;text-align:center}
+.drawer-meta{padding:14px 20px 20px;font-size:13px;line-height:1.6;color:var(--on-pine)}
+.drawer-meta a{display:inline!important;padding:0!important;border:none!important;font-size:13px!important;color:var(--bone)!important;text-decoration:underline}
+
+/* ---- hero ---- */
+.hero{background:var(--pine);color:var(--bone);padding:52px 0 0}
+.hero h1{font-size:34px;font-weight:600;margin-bottom:20px}
+.hero .lede{font-size:17px;color:var(--on-pine);max-width:52ch;margin-bottom:28px}
+.hero-actions{display:flex;flex-direction:column;gap:12px;margin-bottom:44px}
+.hero-actions .btn{text-align:center}
+.spec{border-top:1px solid var(--line-dark)}
+.spec-row{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid var(--line-dark)}
+.spec-key{font-size:14px;color:var(--spec-key);flex-shrink:0}
+.spec-val{font-size:14px;font-weight:500;text-align:right}
+
+.sec-head{margin-bottom:32px}
+.sec-head h2{font-size:27px;font-weight:600;margin-bottom:12px}
+.sec-head p{color:var(--ink-soft);max-width:var(--measure)}
+.band-dark .sec-head p{color:var(--on-pine)}
+
+/* ---- problem ---- */
+.prob{display:grid;gap:28px}
+.prob-item h3{font-size:19px;font-weight:600;margin-bottom:8px}
+.prob-item p{color:var(--ink-soft);max-width:52ch}
+.prob-close{margin-top:36px;padding:24px;background:var(--pine-tint);font-size:17px;max-width:var(--measure)}
+
+/* ---- services ---- */
+.svc{border-top:1px solid var(--line)}
+.svc-row{display:grid;grid-template-columns:26px 1fr;column-gap:16px;padding:24px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.svc-ico{padding-top:3px}
+.svc-ico svg{width:24px;height:24px;display:block}
+.svc-row:hover .svc-name{color:var(--pine)}
+.svc-name{font-family:var(--font-head);font-size:20px;font-weight:600;margin-bottom:6px}
+.svc-desc{color:var(--ink-soft);font-size:15px;max-width:56ch;margin-bottom:10px}
+.svc-price{font-size:14px;font-weight:600;color:var(--pine)}
+
+/* ---- estimator ---- */
+.est{background:var(--pine-deep);border:1px solid var(--line-dark);padding:24px}
+.est-step{margin-bottom:26px}
+.est-label{font-size:14px;font-weight:600;color:var(--on-pine);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:transparent;border:1px solid var(--line-dark);color:var(--bone);border-radius:4px;padding:11px 14px;font-size:14px;cursor:pointer;transition:background .15s ease,border-color .15s ease}
+.chip:hover{border-color:#5E8A7C}
+.chip[aria-pressed="true"]{background:var(--bone);color:var(--pine);border-color:var(--bone);font-weight:600}
+.est-out{border-top:1px solid var(--line-dark);padding-top:22px;display:none}
+.est-out.show{display:block}
+.est-fig{font-family:var(--font-head);font-size:36px;font-weight:700;color:var(--bone);line-height:1;margin-bottom:8px}
+.est-meta{font-size:15px;color:var(--on-pine);margin-bottom:18px}
+.est-note{font-size:13px;color:var(--spec-key);margin-top:14px}
+
+/* ---- work ---- */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.filter{background:transparent;border:1px solid var(--line);color:var(--ink-soft);border-radius:4px;padding:10px 14px;font-size:14px;cursor:pointer;transition:background .15s ease}
+.filter:hover{border-color:var(--pine)}
+.filter[aria-pressed="true"]{background:var(--pine);color:var(--bone);border-color:var(--pine);font-weight:600}
+.work{display:grid;gap:20px}
+.work-card{background:var(--bone);border:1px solid var(--line)}
+.work-card[hidden]{display:none}
+.work-shot{aspect-ratio:16/10;background:var(--pine-tint);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;color:#5A6861;overflow:hidden}
+.work-shot img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.work-body{padding:24px}
+.work-type{font-size:14px;color:var(--ink-soft);margin-bottom:6px}
+.work-card h3{font-size:19px;font-weight:600;margin-bottom:10px}
+.work-card p{font-size:15px;color:var(--ink-soft);margin-bottom:14px}
+.work-link{font-size:14px;font-weight:600;color:var(--pine);text-decoration:underline;text-underline-offset:3px}
+
+/* ---- process ---- */
+.steps{border-top:1px solid var(--line)}
+.step{display:flex;gap:18px;padding:24px 0;border-bottom:1px solid var(--line)}
+.step-n{font-family:var(--font-head);font-size:15px;font-weight:700;color:var(--pine);flex-shrink:0;width:26px;padding-top:2px}
+.step h3{font-size:18px;font-weight:600;margin-bottom:6px}
+.step p{color:var(--ink-soft);font-size:15px;max-width:52ch}
+
+/* ---- results ---- */
+.results{display:grid;gap:24px}
+.result{background:var(--bone);border-left:3px solid var(--pine);padding:20px 22px}
+.result .big{font-family:var(--font-head);font-size:32px;font-weight:700;color:var(--pine);line-height:1;margin-bottom:10px}
+.result p{font-size:15px;color:var(--ink-soft)}
+
+/* ---- who ---- */
+.who{display:grid;gap:26px;align-items:start}
+.who-photo{aspect-ratio:4/5;background:var(--pine-tint);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;color:#5A6861;overflow:hidden;max-width:300px}
+.who-photo img{width:100%;height:100%;object-fit:cover}
+.who h2{font-size:27px;font-weight:600;margin-bottom:14px}
+.who p{color:var(--ink-soft);max-width:56ch;margin-bottom:14px}
+.who-facts{border-top:1px solid var(--line);margin-top:20px}
+.who-facts div{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.who-facts span:first-child{color:var(--ink-soft)}
+.who-facts span:last-child{font-weight:500;text-align:right}
+
+/* ---- faq ---- */
+.faq{border-top:1px solid var(--line);max-width:760px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{font-family:var(--font-head);font-size:17px;font-weight:600;padding:20px 0;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:22px;font-weight:500;color:var(--pine);line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 0 20px;color:var(--ink-soft);max-width:56ch}
+
+/* ---- contact ---- */
+/* The form appears in two places on two different backgrounds: inside the
+   dark homepage section, and via [jarral_contact_form] on an ordinary light
+   page. The LIGHT treatment is the default, because the shortcode is the
+   general case; the dark section overrides it below. Styling it dark-first
+   is what made the Contact page labels render at 1.44:1 and the submit
+   button bone-on-bone, i.e. invisible. */
+.form{display:grid;gap:14px;max-width:560px;margin-top:28px}
+.field label{display:block;font-size:14px;font-weight:500;margin-bottom:6px;color:var(--ink-soft)}
+.field input,.field select,.field textarea{
+  width:100%;font-family:inherit;font-size:16px;padding:13px 14px;border-radius:4px;
+  border:1px solid var(--line);background:#fff;color:var(--ink);
+}
+.field textarea{min-height:120px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:#6B736D}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--pine);outline:2px solid #8FBFAD;outline-offset:1px}
+.form-row{display:grid;gap:14px}
+
+/* On a light page the submit button must be solid, not bone-on-bone. */
+.form .btn-invert{background:var(--pine);color:var(--bone);border-color:var(--pine)}
+.form .btn-invert:hover{background:var(--pine-deep);color:var(--bone)}
+
+/* ---- dark-section overrides: only inside .band-dark ---- */
+.band-dark .field label{color:var(--on-pine)}
+.band-dark .field input,
+.band-dark .field select,
+.band-dark .field textarea{border-color:var(--line-dark);background:var(--pine-deep);color:var(--bone)}
+.band-dark .field input::placeholder,
+.band-dark .field textarea::placeholder{color:#9FBCB1}
+.band-dark .form .btn-invert{background:var(--bone);color:var(--pine);border-color:var(--bone)}
+.band-dark .form .btn-invert:hover{background:#fff;color:var(--pine)}
+
+/* ---- footer ---- */
+.foot{background:var(--ink);color:#9AA69F;padding:40px 0;font-size:14px}
+.foot a{color:var(--on-pine);text-decoration:none}
+.foot a:hover{text-decoration:underline}
+.foot-cols{display:grid;gap:28px;margin-bottom:28px}
+.foot h4{font-family:var(--font-head);color:var(--bone);font-size:14px;font-weight:600;margin-bottom:12px}
+.foot ul{list-style:none;display:grid;gap:8px}
+.foot-base{border-top:1px solid #2A302C;padding-top:20px}
+
+@media (min-width:768px){
+  body{font-size:17px}
+  .wrap{padding:0 32px}
+  .band{padding:76px 0}
+  .hero{padding:72px 0 0}
+  .hero h1{font-size:48px}
+  .hero .lede{font-size:19px}
+  .hero-actions{flex-direction:row;gap:14px}
+  .sec-head h2{font-size:34px}
+  .prob{grid-template-columns:repeat(3,1fr);gap:32px}
+  .work{grid-template-columns:repeat(2,1fr)}
+  .results{grid-template-columns:repeat(3,1fr)}
+  .spec-row{padding:16px 0}
+  .form-row{grid-template-columns:1fr 1fr}
+  .foot-cols{grid-template-columns:repeat(3,1fr)}
+  .svc-row{grid-template-columns:26px 1fr auto;align-items:start;column-gap:20px}
+  .svc-price{text-align:right;white-space:nowrap;padding-top:4px}
+  .est{padding:32px}
+  .who{grid-template-columns:300px 1fr;gap:40px}
+  .who h2{font-size:34px}
+}
+@media (min-width:1024px){
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .burger{display:none}
+  .drawer{display:none!important}
+  .band{padding:96px 0}
+  .hero{padding:96px 0 0}
+  .hero h1{font-size:60px;max-width:16ch}
+  .sec-head h2{font-size:38px}
+  .spec-row{padding:18px 0}
+  .spec-key,.spec-val{font-size:15px}
+  .foot-cols{grid-template-columns:2fr 1fr 1fr 1fr}
+}
+
+/* ==========================================================================
+   WordPress-specific additions
+   ========================================================================== */
+
+/* Keyboard users must be able to jump past the nav. Legally required in the EU. */
+.jd-skip{position:absolute;left:-9999px;top:0;background:var(--bone);color:var(--pine);
+  padding:12px 18px;z-index:100;font-weight:600;border-radius:0 0 4px 0}
+.jd-skip:focus{left:0}
+
+/* Sticky header offset, so anchor links do not land under the bar. */
+html{scroll-padding-top:76px}
+
+.btn-sm{padding:11px 18px}
+
+/* Menus output by wp_nav_menu */
+.nav-list{list-style:none;display:flex;gap:28px;align-items:center;margin:0;padding:0}
+.nav-list a:not(.btn){font-size:15px;color:var(--on-pine);text-decoration:none}
+.nav-list a:not(.btn):hover,.nav-list .current-menu-item a:not(.btn){color:var(--bone)}
+.drawer-list{list-style:none;margin:0;padding:0}
+.drawer-list a{display:block;padding:15px 20px;color:var(--on-pine);text-decoration:none;
+  border-bottom:1px solid var(--line-dark);font-size:16px}
+.foot ul{list-style:none;display:grid;gap:8px;margin:0;padding:0}
+
+/* Definition lists used for the spec bar and the about facts */
+.spec,.who-facts{margin:0}
+.spec-row dt,.spec-row dd,.who-facts dt,.who-facts dd{margin:0}
+
+/* Blog and page content */
+.prose{max-width:68ch;font-size:17px}
+.prose h2{font-size:27px;margin:44px 0 14px}
+.prose h3{font-size:20px;margin:32px 0 10px}
+.prose p,.prose ul,.prose ol{margin-bottom:20px;color:var(--ink-soft)}
+.prose ul,.prose ol{padding-left:22px}
+.prose li{margin-bottom:8px}
+.prose a{color:var(--pine);text-underline-offset:3px}
+.prose img{margin:28px 0;border:1px solid var(--line)}
+.prose blockquote{border-left:3px solid var(--pine);padding:4px 0 4px 20px;margin:28px 0;font-size:19px}
+.prose code{background:var(--pine-tint);padding:2px 6px;font-size:.9em;font-family:ui-monospace,monospace}
+.prose pre{background:var(--ink);color:var(--bone);padding:20px;overflow-x:auto;margin:28px 0}
+.prose pre code{background:none;color:inherit;padding:0}
+.prose table{width:100%;border-collapse:collapse;margin:28px 0;display:block;overflow-x:auto}
+.prose th,.prose td{border:1px solid var(--line);padding:10px 12px;text-align:left}
+
+.post-meta{font-size:15px;color:var(--ink-soft)}
+.post-hero{margin:0 0 36px;border:1px solid var(--line)}
+.post-list{border-top:1px solid var(--line)}
+.post-row{padding:28px 0;border-bottom:1px solid var(--line)}
+.post-row h2{font-size:22px;margin-bottom:6px}
+.post-row h2 a{text-decoration:none}
+.post-row h2 a:hover{color:var(--pine)}
+
+.pagination{margin-top:36px;display:flex;gap:8px}
+.page-numbers{border:1px solid var(--line);padding:9px 14px;text-decoration:none;font-size:15px}
+.page-numbers.current{background:var(--pine);color:var(--bone);border-color:var(--pine)}
+
+/* Contact form, rendered by the Jarral Forms plugin */
+.jdf-note{padding:14px 16px;margin-bottom:18px;font-size:15px;border-radius:4px}
+.jdf-note-ok{background:var(--pine-tint);color:var(--pine);border:1px solid #A9C6B9}
+.jdf-note-bad{background:#FDECEA;color:#8A2015;border:1px solid #E8B4AE}
+.band-dark .jdf-note-ok{background:var(--bone);color:var(--pine);border:none}
+.band-dark .jdf-note-bad{background:#5A1F1A;color:#FFD9D4;border:none}
+.band-dark .jdf-err{color:#FFB4A8}
+.jdf-err{display:block;font-size:13px;color:#A3291B;margin-top:5px}
+.jdf-hp{position:absolute!important;left:-9999px!important;height:1px;width:1px;overflow:hidden}
+
+/* ---- estimator carry-over card -------------------------------------------
+   The three estimator values used to arrive as hidden inputs with one line of
+   small text. The data was reaching the database and the email correctly, but
+   the visitor could not see that it had. This panel shows it back to them, so
+   the form confirms what they picked instead of asking them to trust it. */
+.jdf-quote{border:1px solid var(--line);border-left:3px solid var(--pine);
+  background:var(--pine-tint);padding:16px 18px;margin-bottom:22px;border-radius:4px}
+.jdf-quote-k{font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:#3C6B5C;margin-bottom:8px}
+.jdf-quote-svc{font-family:var(--font-head);font-size:18px;font-weight:600;color:var(--pine);
+  line-height:1.25;margin-bottom:2px}
+.jdf-quote-price{font-family:var(--font-head);font-size:25px;font-weight:700;color:var(--pine);
+  letter-spacing:-.02em;line-height:1.15;margin-bottom:0}
+.jdf-quote-extras{font-size:14px;color:#3C6B5C;margin-top:9px;line-height:1.55}
+.jdf-quote-foot{font-size:13px;color:#3C6B5C;margin-top:12px;
+  padding-top:11px;border-top:1px solid #C2D6CC}
+.jdf-quote-foot a{color:var(--pine);text-decoration:underline;font-weight:500}
+
+/* On the dark homepage band the same card inverts. */
+.band-dark .jdf-quote{background:var(--pine-deep);border-color:var(--line-dark);border-left-color:var(--bone)}
+.band-dark .jdf-quote-k,
+.band-dark .jdf-quote-extras,
+.band-dark .jdf-quote-foot{color:var(--on-pine)}
+.band-dark .jdf-quote-svc,
+.band-dark .jdf-quote-price{color:var(--bone)}
+.band-dark .jdf-quote-foot{border-top-color:var(--line-dark)}
+.band-dark .jdf-quote-foot a{color:var(--bone)}
+
+/* ---- shortcode form block -------------------------------------------------
+   What [jarral_contact_form] wraps itself in when given a heading, so one
+   shortcode produces a finished section on a service page rather than a bare
+   form floating under the body text. */
+.jdf-block{margin-top:56px}
+.jdf-block .jdf-block-head{margin-bottom:26px;max-width:58ch}
+.jdf-block h2{font-size:26px;font-weight:600;margin-bottom:12px}
+.jdf-block .jdf-block-intro{font-size:17px;color:var(--ink-soft);line-height:1.6}
+.band-dark.jdf-block .jdf-block-intro{color:var(--on-pine)}
+.jdf-block .form{max-width:720px}
+
+/* ==========================================================================
+   MOTION
+
+   Deliberately small. Three rules governed what went in here:
+
+   1. One orchestrated moment, not many. The hero animates once on load.
+      Nothing else animates on scroll. Fade-and-slide on every section is
+      the commonest tell of a templated site, and it causes layout shift,
+      which costs you Core Web Vitals - which you need for search.
+
+   2. Motion answers an action. A hover that reveals an arrow tells you the
+      row is clickable. A price that flashes tells you it just changed.
+      Motion that fires on its own tells you nothing.
+
+   3. Everything here is switched off for anyone who asks their operating
+      system to reduce motion. See the bottom of this block.
+   ========================================================================== */
+
+@keyframes jd-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes jd-flash{0%{background:rgba(247,247,244,.14)}100%{background:transparent}}
+
+/* --- The one page-load moment: the hero, in sequence --------------------- */
+.hero h1,
+.hero .lede,
+.hero-actions,
+.spec-row{
+  animation:jd-rise .5s cubic-bezier(.22,.61,.36,1) both;
+}
+.hero h1{animation-delay:.02s}
+.hero .lede{animation-delay:.10s}
+.hero-actions{animation-delay:.18s}
+.spec-row:nth-child(1){animation-delay:.26s}
+.spec-row:nth-child(2){animation-delay:.30s}
+.spec-row:nth-child(3){animation-delay:.34s}
+.spec-row:nth-child(4){animation-delay:.38s}
+.spec-row:nth-child(5){animation-delay:.42s}
+.spec-row:nth-child(6){animation-delay:.46s}
+
+/* --- Service rows: the arrow is an affordance, not decoration ------------ */
+.svc-row{position:relative;transition:background .18s ease}
+.svc-row:hover{background:rgba(20,69,58,.04)}
+.svc-row::after{
+  content:"";
+  position:absolute;right:2px;top:50%;
+  width:16px;height:16px;margin-top:-8px;
+  background:currentColor;color:var(--pine);
+  opacity:0;transform:translateX(-6px);
+  transition:opacity .18s ease,transform .18s ease;
+  -webkit-mask:no-repeat center/16px url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2'%3E%3Cpath d='M5 12h13M12 5l7 7-7 7'/%3E%3C/svg%3E");
+  mask:no-repeat center/16px url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2'%3E%3Cpath d='M5 12h13M12 5l7 7-7 7'/%3E%3C/svg%3E");
+}
+.svc-row:hover::after,.svc-row:focus-visible::after{opacity:1;transform:none}
+@media (min-width:768px){.svc-row{padding-right:28px}}
+
+/* --- Work cards: a border change, not a lift ---------------------------- */
+/* A lift needs a shadow, and a shadow on a flat design looks bolted on. */
+.work-card{transition:border-color .2s ease}
+.work-card:hover{border-color:var(--pine)}
+.work-shot img{transition:transform .5s cubic-bezier(.22,.61,.36,1)}
+.work-card:hover .work-shot img{transform:scale(1.03)}
+
+/* --- Estimator: the figure flashes when the number changes --------------- */
+.est-fig{transition:color .2s ease}
+.est-fig.jd-changed{animation:jd-flash .5s ease-out}
+.chip{transition:background .15s ease,border-color .15s ease,transform .08s ease}
+.chip:active{transform:scale(.97)}
+
+/* --- Filters and buttons: press feedback -------------------------------- */
+.filter{transition:background .15s ease,border-color .15s ease,color .15s ease,transform .08s ease}
+.filter:active{transform:scale(.97)}
+.btn{transition:background .16s ease,color .16s ease,transform .08s ease}
+.btn:active{transform:scale(.98)}
+
+/* --- FAQ: the icon rotates instead of swapping characters ---------------- */
+.faq summary::after{transition:transform .2s ease}
+.faq details[open] summary::after{content:"+";transform:rotate(45deg)}
+
+/* --- Header shrinks slightly once you scroll ---------------------------- */
+.nav{transition:box-shadow .2s ease}
+.nav.jd-stuck{box-shadow:0 1px 0 rgba(0,0,0,.18)}
+
+/* --- Respect the system setting. Non-negotiable. ------------------------ */
+@media (prefers-reduced-motion:reduce){
+  .hero h1,.hero .lede,.hero-actions,.spec-row{animation:none}
+  .est-fig.jd-changed{animation:none}
+  .work-card:hover .work-shot img{transform:none}
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+
+/* ==========================================================================
+   MEGA MENU
+
+   Built as a disclosure, not a hover trick. It opens on hover with a pointer,
+   on click or Enter with a keyboard, and closes on Escape. Hover-only menus
+   are unusable on touch and invisible to keyboards, which is why the trigger
+   is a real <button> with aria-expanded.
+   ========================================================================== */
+
+/* The panel must be as wide as the header, not as wide as the word that
+   opens it. .jd-mega is position:absolute, so it anchors to its nearest
+   POSITIONED ancestor. With position:relative on .jd-top that ancestor was
+   the <li>, so left:0/right:0 resolved to the width of "Services" - about
+   70px - and the three-column grid collapsed into it. Keeping every ancestor
+   static makes .nav (position:sticky, which counts as positioned) the
+   containing block, so the panel spans the full header width. */
+.nav{position:sticky}
+.nav-links{position:static}
+.nav-list{position:static}
+.jd-top{position:static;display:flex;align-items:center}
+
+.jd-top-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-body);font-size:15px;font-weight:400;
+  color:var(--on-pine);text-decoration:none;
+  background:none;border:0;padding:0;cursor:pointer;
+  transition:color .15s ease;
+}
+.jd-top-link:hover,.jd-top-link[aria-expanded="true"]{color:var(--bone)}
+.jd-top-link:focus-visible{outline:3px solid #8FBFAD;outline-offset:4px;border-radius:2px}
+
+.jd-caret{
+  width:8px;height:8px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+  transform:rotate(45deg) translate(-2px,-2px);
+  transition:transform .2s ease;
+}
+.jd-mega-toggle[aria-expanded="true"] .jd-caret{transform:rotate(225deg) translate(-2px,-2px)}
+
+/* --- the panel ---------------------------------------------------------- */
+.jd-mega{
+  position:absolute;left:0;right:0;top:100%;
+  background:var(--pine-deep);
+  border-top:1px solid var(--line-dark);
+  border-bottom:1px solid var(--line-dark);
+  box-shadow:0 14px 28px rgba(0,0,0,.22);
+  z-index:60;
+}
+.jd-mega[hidden]{display:none}
+.jd-mega-inner{max-width:var(--wrap);margin:0 auto;padding:26px 32px 30px}
+.jd-mega-grid{
+  list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 28px;
+}
+.jd-mega-item{margin:0}
+
+.jd-mega-link{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:14px 14px 14px 12px;border-radius:4px;text-decoration:none;
+  transition:background .15s ease;
+}
+.jd-mega-link:hover,.jd-mega-link:focus-visible{background:rgba(247,247,244,.07)}
+.jd-mega-link:focus-visible{outline:2px solid #8FBFAD;outline-offset:-2px}
+
+.jd-mega-ico{flex-shrink:0;padding-top:2px}
+.jd-mega-ico svg{width:22px;height:22px;display:block;stroke:#8FBFAD}
+
+.jd-mega-text{display:block;min-width:0}
+.jd-mega-name{
+  display:block;font-family:var(--font-head);font-size:16px;font-weight:600;
+  color:var(--bone);margin-bottom:4px;letter-spacing:-.01em;
+}
+.jd-mega-desc{display:block;font-size:13px;line-height:1.5;color:var(--on-pine);margin-bottom:6px}
+.jd-mega-price{display:block;font-size:12px;font-weight:600;color:#8FBFAD}
+
+/* Panel entrance. One short movement, nothing decorative. */
+@keyframes jd-mega-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.jd-mega:not([hidden]){animation:jd-mega-in .18s ease-out both}
+
+/* --- mobile drawer: nested list, no panel ------------------------------- */
+.drawer-list .sub-menu,
+.drawer-list .jd-mega{
+  position:static;list-style:none;margin:0;padding:0;
+  background:transparent;border:0;animation:none;
+}
+/* The submenu starts collapsed and animates open.
+
+   This rule used to read `.drawer-list .jd-mega[hidden]{display:block}`.
+   The intent was to stop the panel being absolutely positioned inside the
+   drawer, but `display:block` beats the browser's own `[hidden]` styling,
+   so the panel was forced open no matter what the JavaScript did - the
+   submenu was permanently expanded and tapping the arrow did nothing.
+
+   `grid-template-rows: 0fr -> 1fr` animates to the panel's real height
+   without guessing a max-height, so the motion finishes exactly when the
+   content stops moving. `visibility` is what keeps collapsed links out of
+   the keyboard tab order: it flips to visible immediately on open, and
+   back to hidden only after the collapse has finished. */
+.drawer-list .jd-mega{
+  display:grid;grid-template-rows:0fr;visibility:hidden;
+  transition:grid-template-rows .26s ease, visibility 0s linear .26s;
+}
+.drawer-list .jd-mega.is-open{
+  grid-template-rows:1fr;visibility:visible;
+  transition:grid-template-rows .26s ease, visibility 0s;
+}
+.drawer-list .jd-mega-inner{max-width:none;margin:0;padding:0;min-height:0;overflow:hidden}
+.drawer-list .jd-mega-grid{display:block}
+.drawer-list .jd-mega-link{
+  padding:13px 20px 13px 38px;border-bottom:1px solid var(--line-dark);border-radius:0;
+}
+.drawer-list .jd-mega-desc,
+.drawer-list .jd-mega-price,
+.drawer-list .jd-mega-ico{display:none}
+.drawer-list .jd-mega-name{margin:0;font-size:15px;font-weight:400;font-family:var(--font-body)}
+.drawer-list .jd-top-link{
+  display:flex;justify-content:space-between;align-items:center;
+  width:100%;text-align:left;
+  padding:15px 20px;border-bottom:1px solid var(--line-dark);font-size:16px;
+}
+/* On mobile the caret belongs at the right edge, where a thumb expects it. */
+.drawer-list .jd-caret{margin-right:4px}
+.drawer-list .jd-top{display:block}
+
+@media (max-width:1023px){
+  .jd-mega{position:static}
+}
+@media (prefers-reduced-motion:reduce){
+  .jd-mega:not([hidden]){animation:none}
+  .jd-caret{transition:none}
+  /* The submenu still opens and closes, it just does it instantly. The
+     visibility delay has to go too, or a collapsed panel would keep its
+     links in the tab order for a quarter of a second after closing. */
+  .drawer-list .jd-mega,
+  .drawer-list .jd-mega.is-open{transition:none}
+  .drawer{scroll-behavior:auto}
+}

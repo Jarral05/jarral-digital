@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 180" width="760" height="180" role="img" aria-label="Jarral Digital">
+<rect width="760" height="180" fill="#F7F7F4"/>
+<g transform="translate(40,46)">
+  <rect width="88" height="88" fill="#14453A"/>
+  <path d="M33 26 H66 M55 26 V51 a11.9 11.9 0 0 1 -23.8 0"
+        fill="none" stroke="#F7F7F4" stroke-width="7.3" stroke-linecap="square" stroke-linejoin="miter"/>
+</g>
+<text x="158" y="104" fill="#14453A" font-family="Segoe UI,-apple-system,Helvetica,Arial,sans-serif"
+      font-size="52" font-weight="700" letter-spacing="-1.4">Jarral Digital</text>
+</svg>

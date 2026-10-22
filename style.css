@@ -1,0 +1,18 @@
+/*
+Theme Name: Jarral Digital
+Theme URI: https://jarraldigital.com
+Author: Mohsin Jarral
+Author URI: https://jarraldigital.com
+Description: Hand-built theme for Jarral Digital. No page builder, no framework, no build step. Classic PHP templates with a small, auditable surface.
+Version: 1.5.1
+Requires at least: 6.4
+Requires PHP: 8.0
+Update URI: https://github.com/Jarral05/jarral-digital
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: jarral-digital
+Tags: custom-theme, accessibility-ready, translation-ready
+*/
+
+/* Real styles live in assets/css/main.css. This file exists because
+   WordPress requires it to recognise the folder as a theme. */
