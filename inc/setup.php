@@ -40,6 +40,9 @@ function jd_setup() {
 		array(
 			'primary' => __( 'Primary menu', 'jarral-digital' ),
 			'footer'  => __( 'Footer menu', 'jarral-digital' ),
+			// Optional. With nothing assigned, the footer finds the policy
+			// pages and the sitemap itself (jd_legal_pages()).
+			'legal'   => __( 'Footer legal links', 'jarral-digital' ),
 		)
 	);
 }
@@ -107,7 +110,7 @@ function jd_customize( $wp_customize ) {
 			'jd_portrait',
 			array(
 				'label'       => __( 'Your photo', 'jarral-digital' ),
-				'description' => __( 'Shown on the homepage About section. 800 x 1000 works best.', 'jarral-digital' ),
+				'description' => __( 'Shown on the homepage About section and at the top of the About page. 800 x 1000 works best.', 'jarral-digital' ),
 				'section'     => 'jd_section',
 				'mime_type'   => 'image',
 			)

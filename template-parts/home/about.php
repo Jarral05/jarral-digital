@@ -24,8 +24,11 @@ defined( 'ABSPATH' ) || exit;
 					false,
 					array( 'alt' => 'Mohsin Jarral', 'loading' => 'lazy', 'decoding' => 'async' )
 				);
-			} else {
+			} elseif ( current_user_can( 'edit_theme_options' ) ) {
+				// Only the site owner sees the instruction. It used to show to everyone.
 				echo '<span>Add your photo in Customise &rarr; Jarral Digital</span>';
+			} else {
+				echo '<span class="who-initials" aria-hidden="true">MJ</span>';
 			}
 			?>
 		</div>

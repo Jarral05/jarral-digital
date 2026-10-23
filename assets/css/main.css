@@ -233,6 +233,8 @@ button{font-family:inherit}
 .who-photo{grid-area:photo;aspect-ratio:4/5;background:var(--pine-tint);border:1px solid var(--line);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;color:#5A6861;overflow:hidden}
 .who-photo img{width:100%;height:100%;object-fit:cover}
 .who-photo span{padding:10px}
+/* What visitors see until a photo is uploaded. */
+.who-photo .who-initials{font-family:var(--font-head);font-size:56px;font-weight:600;letter-spacing:-0.02em;color:var(--pine)}
 .who-head{grid-area:head;margin-bottom:16px}
 .who-body{grid-area:body}
 .who h2{font-size:26px;font-weight:600}
@@ -252,6 +254,7 @@ button{font-family:inherit}
     column-gap:18px;align-items:center}
   .who-photo{aspect-ratio:1/1;font-size:10px;line-height:1.35}
   .who-photo span{padding:6px}
+  .who-photo .who-initials{font-size:28px}
   .who-head{margin-bottom:0}
   .who-body{margin-top:20px}
 }
@@ -305,13 +308,25 @@ button{font-family:inherit}
 .band-dark .form .btn-invert:hover{background:#fff;color:var(--pine)}
 
 /* ---- footer ---- */
-.foot{background:var(--ink);color:#9AA69F;padding:40px 0;font-size:14px}
+/* The brand block reads as a lockup: mark, name, and the site Tagline under
+   it. Column headings use the eyebrow style the pages use. */
+.foot{background:var(--ink);color:#9AA69F;padding:52px 0 28px;font-size:14px}
 .foot a{color:var(--on-pine);text-decoration:none}
-.foot a:hover{text-decoration:underline}
-.foot-cols{display:grid;gap:28px;margin-bottom:28px}
-.foot h4{font-family:var(--font-head);color:var(--bone);font-size:14px;font-weight:600;margin-bottom:12px}
-.foot ul{list-style:none;display:grid;gap:8px}
-.foot-base{border-top:1px solid #2A302C;padding-top:20px}
+.foot a:hover{color:var(--bone);text-decoration:underline;text-underline-offset:3px}
+.foot-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 24px;margin-bottom:40px}
+.foot-brand,.foot-services{grid-column:1 / -1}
+.foot a.foot-logo{display:inline-flex;align-items:center;gap:12px;margin-bottom:16px;color:var(--bone);text-decoration:none}
+.foot-logo svg{width:38px;height:38px;flex-shrink:0}
+.foot-name{display:flex;flex-direction:column;font-family:var(--font-head);font-size:19px;font-weight:700;
+  line-height:1.2;letter-spacing:-0.02em}
+.foot-tag{margin-top:3px;font-family:var(--font-body);font-size:13px;font-weight:400;letter-spacing:0;color:#9AA69F}
+.foot-brand p{max-width:46ch;line-height:1.7}
+.foot-contact{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:14px}
+.foot-h{font-family:var(--font-head);font-size:12px;font-weight:700;line-height:1.3;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--spec-key);margin-bottom:14px}
+.foot ul{list-style:none;display:grid;gap:9px}
+.foot-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 24px;
+  border-top:1px solid #2A302C;padding-top:20px;font-size:13px}
 
 @media (min-width:768px){
   body{font-size:17px}
@@ -331,7 +346,8 @@ button{font-family:inherit}
   .result{padding:26px 28px;border-top:0;border-left:1px solid var(--line)}
   .result:first-child{border-left:0}
   .form-row{grid-template-columns:1fr 1fr}
-  .foot-cols{grid-template-columns:repeat(3,1fr)}
+  .foot-cols{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .foot-services{grid-column:auto}
   .est-steps,.est-out{padding:28px}
   .who h2{font-size:32px}
 }
@@ -354,7 +370,8 @@ button{font-family:inherit}
   .work{grid-template-columns:repeat(3,minmax(0,1fr))}
   .result .big{font-size:40px}
   .who h2{font-size:36px}
-  .foot-cols{grid-template-columns:2fr 1fr 1fr 1fr}
+  .foot-cols{grid-template-columns:1.8fr 1.3fr 1fr 1fr;gap:40px}
+  .foot-brand{grid-column:auto}
 }
 
 /* ==========================================================================
@@ -378,7 +395,7 @@ html{scroll-padding-top:76px}
 .drawer-list{list-style:none;margin:0;padding:0}
 .drawer-list a{display:block;padding:15px 20px;color:var(--on-pine);text-decoration:none;
   border-bottom:1px solid var(--line-dark);font-size:16px}
-.foot ul{list-style:none;display:grid;gap:8px;margin:0;padding:0}
+.foot ul{margin:0;padding:0}
 
 /* Definition lists used for the hero stats and the about facts */
 .hero-stats{margin:0}
@@ -852,6 +869,13 @@ html{scroll-padding-top:76px}
 .page-hero h1{font-size:32px;font-weight:600;max-width:24ch;text-wrap:balance}
 .page-hero .lede{font-size:17px;color:var(--on-pine);max-width:60ch;margin-top:14px;text-wrap:pretty}
 
+/* Portrait (the About page): a small square above the breadcrumbs on phones,
+   a 4:5 card beside the heading from 768px, like the homepage hero's card. */
+.page-hero.has-portrait .page-hero-in{display:flex;flex-direction:column}
+.page-hero-portrait{order:-1;width:96px;aspect-ratio:1/1;margin:0 0 22px;overflow:hidden;
+  background:var(--pine-deep);border:1px solid var(--line-dark);border-radius:var(--r-md)}
+.page-hero-portrait img{width:100%;height:100%;object-fit:cover;object-position:top center}
+
 /* Breadcrumbs, set like the eyebrow labels on the homepage. */
 .crumbs ol{list-style:none;display:flex;flex-wrap:wrap;align-items:center;margin-bottom:14px;
   font-family:var(--font-head);font-size:12px;font-weight:700;line-height:1.5;letter-spacing:.14em;
@@ -917,6 +941,15 @@ html{scroll-padding-top:76px}
 .post-card p:not(.post-meta){font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin-bottom:14px}
 .post-card-more{margin-top:auto;font-size:14px;font-weight:600;color:var(--pine)}
 
+/* ---- sitemap page ---- */
+.sitemap{display:grid;gap:16px;align-items:start}
+.sitemap-group{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:22px 24px}
+.sitemap-group ul{list-style:none;display:grid;gap:4px;margin:0;padding:0}
+.sitemap-group a{display:inline-block;padding:3px 0;font-size:15px;color:var(--ink);text-decoration:none}
+.sitemap-group a:hover{color:var(--pine);text-decoration:underline;text-underline-offset:3px}
+.sitemap-xml{margin-top:24px;font-size:14px;color:var(--ink-soft)}
+.sitemap-xml a{color:var(--pine);text-underline-offset:3px}
+
 /* ---- empty states ---- */
 .empty-note{max-width:640px;padding:24px 26px;background:#fff;border:1px dashed var(--line);border-radius:var(--r-md)}
 .empty-note p{color:var(--ink-soft)}
@@ -944,6 +977,9 @@ html{scroll-padding-top:76px}
   .page-meta{font-size:15px}
   .inner-page .prose h2{font-size:26px}
   .doc-figure{aspect-ratio:2/1}
+  .page-hero.has-portrait .page-hero-in{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:48px;align-items:center}
+  .page-hero-portrait{order:0;width:auto;aspect-ratio:4/5;margin:0;border-radius:var(--r-lg)}
+  .sitemap{grid-template-columns:repeat(2,minmax(0,1fr))}
   .post-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .cta-band h2{font-size:32px}
   .cta-actions{flex-direction:row}
@@ -951,6 +987,8 @@ html{scroll-padding-top:76px}
 @media (min-width:1024px){
   .page-hero{padding:64px 0 72px}
   .page-hero h1{font-size:46px}
+  .page-hero.has-portrait .page-hero-in{grid-template-columns:minmax(0,1fr) 250px;gap:72px}
+  .sitemap{grid-template-columns:repeat(3,minmax(0,1fr))}
   .doc.has-toc{grid-template-columns:minmax(0,1fr) 260px;gap:72px;align-items:start}
   .doc.has-toc .prose{grid-column:1;grid-row:1}
   .doc.has-toc .toc{display:block;grid-column:2;grid-row:1;position:sticky;top:96px;

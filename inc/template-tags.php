@@ -267,6 +267,54 @@ function jd_crumbs( $items ) {
 }
 
 /**
+ * A published page by its path, or null. For the few pages the theme links
+ * to on its own: the policies and the sitemap.
+ *
+ * @param string $path Page path, e.g. "cookie-policy".
+ * @return WP_Post|null
+ */
+function jd_published_page( $path ) {
+	$page = get_page_by_path( $path );
+	return ( $page && 'publish' === $page->post_status ) ? $page : null;
+}
+
+/**
+ * The legal pages that exist, in the order privacy, terms, cookies.
+ *
+ * Found with no menu set up: the privacy page from Settings > Privacy, the
+ * others by their usual slugs. Assign a menu to "Footer legal links" to pick
+ * them by hand instead.
+ *
+ * @return WP_Post[]
+ */
+function jd_legal_pages() {
+	$kinds = array(
+		array( 'privacy-policy', 'privacy-policy-2', 'privacy' ),
+		array( 'terms-of-service', 'terms-and-conditions', 'terms' ),
+		array( 'cookie-policy', 'cookies' ),
+	);
+	$pages = array();
+
+	$privacy = (int) get_option( 'wp_page_for_privacy_policy' );
+	if ( $privacy && 'publish' === get_post_status( $privacy ) ) {
+		$pages[] = get_post( $privacy );
+		array_shift( $kinds );
+	}
+
+	foreach ( $kinds as $slugs ) {
+		foreach ( $slugs as $slug ) {
+			$page = jd_published_page( $slug );
+			if ( $page ) {
+				$pages[] = $page;
+				break;
+			}
+		}
+	}
+
+	return $pages;
+}
+
+/**
  * Breadcrumb items for a page: its ancestors, then the page itself.
  *
  * @param int|WP_Post|null $post Page. Defaults to the current post.

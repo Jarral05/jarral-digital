@@ -3,6 +3,42 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.6.7] - 2026-10-23
+
+### Added
+- **The About page shows your portrait.** `page-about.php` (picked by the
+  slug "about") puts the photo from Customise > Jarral Digital in the page
+  hero: beside the heading from 768px, as a small square above it on
+  phones. A row of facts sits under the heading. One upload serves both the
+  About page and the homepage About section. The page hero takes a new
+  optional `portrait` argument.
+- **Sitemap page.** `page-sitemap.php` is picked when a page with the slug
+  "sitemap" exists. It lists every page, service, project, article and
+  policy straight from the site, so it never needs editing. It links to the
+  XML sitemap: Rank Math's when Rank Math is active, WordPress's own
+  otherwise.
+- **"Footer legal links" menu location.** It is optional: with nothing
+  assigned, the footer finds the policy pages itself (`jd_legal_pages()`:
+  the privacy page from Settings > Privacy, the others by slug) and adds the
+  Sitemap.
+
+### Changed
+- **The footer is redesigned.** The brand block is the logo mark and name
+  with the site Tagline (Settings > General) beneath it, a fuller
+  description, and the email address with the reply time. The columns are
+  Services, Company (now including Contact) and a new Legal column. Column
+  headings use the site's eyebrow style and are `<h2>`, so they no longer
+  skip from `<h2>` to `<h4>`. The bottom bar adds the time-zone line. The
+  email comes from `jd_contact_email()` instead of being hard-coded. The
+  footer is site-wide, so the service pages get it too; above the footer
+  they render pixel-identical to 1.6.6.
+
+### Fixed
+- **Visitors no longer see "Add your photo in Customise".** With no photo
+  set, the homepage About section showed that instruction to everyone.
+  Visitors now see an "MJ" monogram, and only the site owner sees the
+  instruction.
+
 ## [1.6.6] - 2026-10-23
 
 ### Added
