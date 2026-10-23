@@ -158,6 +158,21 @@ function jd_get_faqs() {
 }
 
 /**
+ * The four promises beside the contact form, on the homepage and the
+ * Contact page.
+ *
+ * @return array<int,array{h:string,p:string}>
+ */
+function jd_get_promises() {
+	return array(
+		array( 'h' => 'Nothing is committed by sending this', 'p' => 'No call is booked, no invoice raised, nobody added to a list.' ),
+		array( 'h' => 'A fixed price before work starts',     'p' => 'The number you accept is the number you pay.' ),
+		array( 'h' => 'You own the result',                   'p' => 'Design, code and content transfer to you on final payment.' ),
+		array( 'h' => 'Thirty days of fixes included',        'p' => 'Anything not working as described is fixed at no cost.' ),
+	);
+}
+
+/**
  * Print an inline SVG icon from assets/icons/.
  *
  * Inline rather than <img> so the icon inherits currentColor and costs
@@ -222,6 +237,142 @@ function jd_reading_time() {
 	$words = str_word_count( wp_strip_all_tags( get_the_content() ) );
 	$mins  = max( 1, (int) ceil( $words / 220 ) );
 	return $mins . ' min read';
+}
+
+/**
+ * Print the breadcrumb trail shown above an inner page's heading.
+ *
+ * Home is always first. Each item is array( label, url ); an item with no
+ * url is the current page and is marked aria-current.
+ *
+ * @param array<int,array{0:string,1?:string}> $items Trail after Home.
+ */
+function jd_crumbs( $items ) {
+	?>
+	<nav class="crumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'jarral-digital' ); ?>">
+		<ol>
+			<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'jarral-digital' ); ?></a></li>
+			<?php foreach ( $items as $item ) : ?>
+				<li>
+					<?php if ( ! empty( $item[1] ) ) : ?>
+						<a href="<?php echo esc_url( $item[1] ); ?>"><?php echo esc_html( $item[0] ); ?></a>
+					<?php else : ?>
+						<span aria-current="page"><?php echo esc_html( $item[0] ); ?></span>
+					<?php endif; ?>
+				</li>
+			<?php endforeach; ?>
+		</ol>
+	</nav>
+	<?php
+}
+
+/**
+ * Breadcrumb items for a page: its ancestors, then the page itself.
+ *
+ * @param int|WP_Post|null $post Page. Defaults to the current post.
+ * @return array<int,array{0:string,1:string}>
+ */
+function jd_page_trail( $post = null ) {
+	$post  = get_post( $post );
+	$trail = array();
+	foreach ( array_reverse( get_post_ancestors( $post ) ) as $id ) {
+		$trail[] = array( get_the_title( $id ), get_permalink( $id ) );
+	}
+	$trail[] = array( get_the_title( $post ), '' );
+	return $trail;
+}
+
+/**
+ * Run post content through the_content and prepare it for an inner page.
+ *
+ * Gives every <h2> an id so the "On this page" list can link to it, collects
+ * those headings, and wraps each table in a scroll box so a wide table scrolls
+ * on a phone instead of stretching the page.
+ *
+ * @param string $content Raw post content, from get_the_content().
+ * @return array{html:string,toc:array<string,string>} Content, and heading text keyed by id.
+ */
+function jd_prepare_content( $content ) {
+	$html = str_replace( ']]>', ']]&gt;', apply_filters( 'the_content', $content ) );
+	$toc  = array();
+
+	$html = preg_replace_callback(
+		'#<h2([^>]*)>(.*?)</h2>#is',
+		static function ( $m ) use ( &$toc ) {
+			$text = trim( wp_strip_all_tags( $m[2] ) );
+			if ( '' === $text ) {
+				return $m[0];
+			}
+
+			// Keep an id the editor already set, so existing links still work.
+			if ( preg_match( '/\sid=(["\'])(.*?)\1/i', $m[1], $set ) ) {
+				$toc[ $set[2] ] = $text;
+				return $m[0];
+			}
+
+			$base = sanitize_title( $text );
+			$base = '' === $base ? 'section' : $base;
+			$id   = $base;
+			for ( $n = 2; isset( $toc[ $id ] ); $n++ ) {
+				$id = $base . '-' . $n;
+			}
+			$toc[ $id ] = $text;
+
+			return '<h2 id="' . esc_attr( $id ) . '"' . $m[1] . '>' . $m[2] . '</h2>';
+		},
+		$html
+	);
+
+	$html = preg_replace( '#<table\b(.*?)</table>#is', '<div class="table-wrap"><table$1</table></div>', $html );
+
+	return array(
+		'html' => (string) $html,
+		'toc'  => $toc,
+	);
+}
+
+/**
+ * Heading for index.php, which serves the blog, every archive and search.
+ *
+ * @return array{crumb:string,title:string,desc:string}
+ */
+function jd_archive_heading() {
+	if ( is_search() ) {
+		return array(
+			'crumb' => __( 'Search', 'jarral-digital' ),
+			/* translators: %s: the search terms */
+			'title' => sprintf( __( 'Results for “%s”', 'jarral-digital' ), get_search_query( false ) ),
+			'desc'  => '',
+		);
+	}
+
+	if ( is_home() ) {
+		$blog  = (int) get_option( 'page_for_posts' );
+		$title = $blog ? get_the_title( $blog ) : __( 'Blog', 'jarral-digital' );
+		return array(
+			'crumb' => $title,
+			'title' => $title,
+			'desc'  => $blog && has_excerpt( $blog ) ? get_the_excerpt( $blog ) : '',
+		);
+	}
+
+	if ( is_archive() ) {
+		// "Category: News" reads like a database label. Drop the prefix.
+		add_filter( 'get_the_archive_title_prefix', '__return_empty_string' );
+		$title = wp_strip_all_tags( get_the_archive_title() );
+		remove_filter( 'get_the_archive_title_prefix', '__return_empty_string' );
+		return array(
+			'crumb' => $title,
+			'title' => $title,
+			'desc'  => wp_strip_all_tags( get_the_archive_description() ),
+		);
+	}
+
+	return array(
+		'crumb' => get_bloginfo( 'name' ),
+		'title' => get_bloginfo( 'name' ),
+		'desc'  => '',
+	);
 }
 
 /**

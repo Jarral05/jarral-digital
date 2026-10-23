@@ -18,10 +18,9 @@ defined( 'ABSPATH' ) || exit;
 				<p class="lede">You will have a reply within twelve hours with scope, a price and a timeline. From me, not an assistant.</p>
 
 				<ul class="promise">
-					<li><strong>Nothing is committed by sending this</strong> No call is booked, no invoice raised, nobody added to a list.</li>
-					<li><strong>A fixed price before work starts</strong> The number you accept is the number you pay.</li>
-					<li><strong>You own the result</strong> Design, code and content transfer to you on final payment.</li>
-					<li><strong>Thirty days of fixes included</strong> Anything not working as described is fixed at no cost.</li>
+					<?php foreach ( jd_get_promises() as $jd_promise ) : ?>
+						<li><strong><?php echo esc_html( $jd_promise['h'] ); ?></strong> <?php echo esc_html( $jd_promise['p'] ); ?></li>
+					<?php endforeach; ?>
 				</ul>
 
 				<p class="contact-meta">

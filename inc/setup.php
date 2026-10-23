@@ -54,6 +54,32 @@ function jd_content_width() {
 add_action( 'after_setup_theme', 'jd_content_width', 0 );
 
 /**
+ * Give pages an Excerpt box. A page's excerpt is the intro line under its
+ * heading in the page hero; leave it empty and the hero shows the heading only.
+ */
+function jd_page_excerpts() {
+	add_post_type_support( 'page', 'excerpt' );
+}
+add_action( 'init', 'jd_page_excerpts' );
+
+/**
+ * Show every project on /work/ and on the service type pages. The filter
+ * buttons work in the browser, so a second page would put projects out of
+ * their reach.
+ *
+ * @param WP_Query $query The query being prepared.
+ */
+function jd_all_projects( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+	if ( $query->is_post_type_archive( 'jd_project' ) || $query->is_tax( 'jd_service_type' ) ) {
+		$query->set( 'posts_per_page', -1 );
+	}
+}
+add_action( 'pre_get_posts', 'jd_all_projects' );
+
+/**
  * One Customizer setting: your portrait on the About section.
  * Everything else is content, and content belongs in the editor.
  */

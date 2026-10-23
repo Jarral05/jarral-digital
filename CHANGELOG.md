@@ -3,6 +3,62 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.6.6] - 2026-10-23
+
+### Added
+- **Inner pages share the homepage's design.** About, Process, Contact, the
+  three policies, the blog, `/work/`, project pages and the 404 open with a
+  page hero: the homepage hero's pine band with breadcrumbs, the heading and
+  an optional intro line. They close with a "Have a project in mind?" band
+  (except Contact). The service and sub-service pages are unchanged: they
+  print through page.php's pattern branch as before, and all seven render
+  pixel-identical to 1.6.5 at 1440px and 390px. So does the homepage.
+- **Pages have an Excerpt box.** A page's excerpt is the intro line under its
+  heading. Leave it empty and the hero shows the heading only.
+- **"On this page" list.** Pages and posts with three or more headings get a
+  sticky list of them beside the content from 1024px.
+  `jd_prepare_content()` gives each `<h2>` an id (an id the editor already
+  set is kept). It also wraps tables in a box that scrolls sideways on a
+  phone.
+- **Contact page template** (`page-contact.php`, picked by the slug
+  "contact"). The form sits beside the four promises from the homepage, now
+  one list in `jd_get_promises()`. Below 900px the form comes first.
+- **Project pages and `/work/`.** `archive-jd_project.php` and
+  `taxonomy-jd_service_type.php` show the homepage's project cards and
+  filter, with every project on one page (`jd_all_projects()`).
+  `single-jd_project.php` puts the screenshot, the write-up and a Project
+  facts card in the service pages' layout. Before this, `/work/` fell
+  through to the blog list and project pages to the blog post template. A
+  card's title links to the project page only when that page has content.
+  The card markup lives in `template-parts/work-card.php`, shared with the
+  homepage.
+
+### Changed
+- **The blog is a card grid.** index.php shows rounded cards for the blog,
+  archives and search. A post without a featured image gets a blank tinted
+  panel, so rows stay even. single.php uses the page hero (date and reading
+  time) and an image cropped to 2:1.
+- **Page content is set in the homepage's type.** A hairline separates
+  sections, bullets are pine and tables sit in a rounded box. This is scoped
+  to `.inner-page`, so the service pages' `.prose` is untouched.
+- **`.promise` and `.contact-meta` are light by default.** The dark styling
+  now applies only inside `.band-dark`, so the homepage section and the
+  service pages' dark form bands look the same as before.
+- **The homepage project swipe row is scoped to `.homepage`.** `/work/`
+  keeps a stacked list on phones.
+
+### Fixed
+- **Visitors no longer see the admin note.** With no projects published,
+  the homepage showed every visitor "Add your first project under Projects
+  in the admin menu". Visitors now get a note with a link to get in touch,
+  and the admin reminder shows only to logged-in editors.
+- **Pagination shows on phones.** `the_posts_pagination()` wraps its links in
+  `.nav-links`, the header menu's class, which is hidden below 1024px.
+- **Pagination's heading is hidden again.** It is printed with
+  `.screen-reader-text`, which the theme never defined, so "Posts
+  pagination" showed on screen. The standard WordPress rule is now in
+  main.css.
+
 ## [1.6.5] - 2026-10-23
 
 ### Changed
