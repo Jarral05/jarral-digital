@@ -14,24 +14,7 @@ defined( 'ABSPATH' ) || exit;
 <section class="band band-tint" id="about">
 	<div class="wrap who">
 
-		<div class="who-photo">
-			<?php
-			$jd_photo = get_theme_mod( 'jd_portrait' );
-			if ( $jd_photo ) {
-				echo wp_get_attachment_image(
-					(int) $jd_photo,
-					'jd-portrait',
-					false,
-					array( 'alt' => 'Mohsin Jarral', 'loading' => 'lazy', 'decoding' => 'async' )
-				);
-			} elseif ( current_user_can( 'edit_theme_options' ) ) {
-				// Only the site owner sees the instruction. It used to show to everyone.
-				echo '<span>Add your photo in Customise &rarr; Jarral Digital</span>';
-			} else {
-				echo '<span class="who-initials" aria-hidden="true">MJ</span>';
-			}
-			?>
-		</div>
+		<?php get_template_part( 'template-parts/portrait', null, array( 'class' => 'who-photo' ) ); ?>
 
 		<div class="who-head">
 			<p class="eyebrow">About</p>
@@ -43,10 +26,9 @@ defined( 'ABSPATH' ) || exit;
 			<p>Before development I trained as a mechanical engineer, which is probably why I care more about whether a system holds up than whether it looks clever.</p>
 
 			<dl class="who-facts">
-				<div><dt>Based in</dt><dd>Pakistan</dd></div>
-				<div><dt>Working hours</dt><dd>Overlap US, UK, EU, Gulf</dd></div>
-				<div><dt>Written in</dt><dd>English</dd></div>
-				<div><dt>Reply time</dt><dd>Within 12 hours</dd></div>
+				<?php foreach ( jd_get_about_facts() as $jd_label => $jd_value ) : ?>
+					<div><dt><?php echo esc_html( $jd_label ); ?></dt><dd><?php echo esc_html( $jd_value ); ?></dd></div>
+				<?php endforeach; ?>
 			</dl>
 		</div>
 	</div>

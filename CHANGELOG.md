@@ -3,6 +3,32 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.7.1] - 2026-10-23
+
+### Changed
+- **The About page sets your portrait like the homepage About section.**
+  The photo and the four facts form a sticky column beside the page's text
+  from 901px, and a compact profile above the text on phones (photo beside
+  the facts). This replaces the small portrait card in the page hero from
+  1.6.7. The hero keeps the breadcrumb, the heading and an intro line: the
+  page's Excerpt, or a default line when none is set. The homepage and the
+  About page share `template-parts/portrait.php` (photo, visitor monogram,
+  owner-only instruction) and `jd_get_about_facts()`, so neither can drift.
+  The homepage renders pixel-identical, with and without a photo.
+
+### Removed
+- **The old service-page machinery.** Since 1.7.0 the service pages render
+  from `inc/services.php`, so this code had no remaining use:
+  - `inc/patterns.php`, the five "Jarral Digital" block patterns that
+    pasted service sections in as Custom HTML.
+  - `jd_is_pattern_page()` and its branch in page.php.
+  - `template-service.php` (the "Service page" template). No page used it;
+    a page set to it would fall back to page.php.
+- **The page hero's `portrait` argument** and its styles.
+- Every page other than About renders pixel-identical to 1.7.0 at 1440px
+  and 390px: the seven service pages, home, Contact, Sitemap, Process, the
+  policies, the 404, /work/ and posts.
+
 ## [1.7.0] - 2026-10-23
 
 ### Changed

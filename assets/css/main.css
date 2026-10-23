@@ -230,11 +230,13 @@ button{font-family:inherit}
 /* ---- who ---- */
 .who{display:grid;grid-template-columns:280px minmax(0,1fr);
   grid-template-areas:"photo head" "photo body";column-gap:56px;align-items:start}
-.who-photo{grid-area:photo;aspect-ratio:4/5;background:var(--pine-tint);border:1px solid var(--line);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;color:#5A6861;overflow:hidden}
-.who-photo img{width:100%;height:100%;object-fit:cover}
-.who-photo span{padding:10px}
+/* .about-photo is the same portrait on the About page (template-parts/portrait.php). */
+.who-photo,.about-photo{aspect-ratio:4/5;background:var(--pine-tint);border:1px solid var(--line);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;color:#5A6861;overflow:hidden}
+.who-photo{grid-area:photo}
+.who-photo img,.about-photo img{width:100%;height:100%;object-fit:cover}
+.who-photo span,.about-photo span{padding:10px}
 /* What visitors see until a photo is uploaded. */
-.who-photo .who-initials{font-family:var(--font-head);font-size:56px;font-weight:600;letter-spacing:-0.02em;color:var(--pine)}
+.who-photo .who-initials,.about-photo .who-initials{font-family:var(--font-head);font-size:56px;font-weight:600;letter-spacing:-0.02em;color:var(--pine)}
 .who-head{grid-area:head;margin-bottom:16px}
 .who-body{grid-area:body}
 .who h2{font-size:26px;font-weight:600}
@@ -860,7 +862,7 @@ html{scroll-padding-top:76px}
 
    Everything under .inner-page: the page hero, the document layout, blog
    cards, empty states and the closing call to action. The templates are
-   page.php (non-pattern pages), page-contact.php, index.php, single.php,
+   page.php, page-about.php, page-contact.php, page-sitemap.php, index.php, single.php,
    archive-jd_project.php, single-jd_project.php and 404.php.
    ========================================================================== */
 
@@ -868,13 +870,6 @@ html{scroll-padding-top:76px}
 .page-hero{background:var(--pine);color:var(--bone);padding:40px 0 48px}
 .page-hero h1{font-size:32px;font-weight:600;max-width:24ch;text-wrap:balance}
 .page-hero .lede{font-size:17px;color:var(--on-pine);max-width:60ch;margin-top:14px;text-wrap:pretty}
-
-/* Portrait (the About page): a small square above the breadcrumbs on phones,
-   a 4:5 card beside the heading from 768px, like the homepage hero's card. */
-.page-hero.has-portrait .page-hero-in{display:flex;flex-direction:column}
-.page-hero-portrait{order:-1;width:96px;aspect-ratio:1/1;margin:0 0 22px;overflow:hidden;
-  background:var(--pine-deep);border:1px solid var(--line-dark);border-radius:var(--r-md)}
-.page-hero-portrait img{width:100%;height:100%;object-fit:cover;object-position:top center}
 
 /* Breadcrumbs, set like the eyebrow labels on the homepage. */
 .crumbs ol{list-style:none;display:flex;flex-wrap:wrap;align-items:center;margin-bottom:14px;
@@ -956,6 +951,20 @@ html{scroll-padding-top:76px}
 .empty-note a{color:var(--pine);font-weight:500;text-underline-offset:3px}
 .empty-note .empty-admin{margin-top:10px;font-size:14px;color:#3C6B5C}
 
+/* ---- about page: the portrait and facts beside the text ---- */
+/* Phones: a compact profile, photo beside the facts, above the text. From
+   901px the photo and facts are a sticky column beside the text, as the
+   homepage About section sets them. */
+.about-cols{display:grid;gap:32px}
+.about-cols .prose{min-width:0}
+.about-profile{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:start}
+.about-profile .who-facts{grid-template-columns:1fr;margin-top:0}
+@media (min-width:901px){
+  .about-cols{grid-template-columns:280px minmax(0,1fr);gap:56px;align-items:start}
+  .about-profile{display:block;position:sticky;top:96px}
+  .about-profile .who-facts{margin-top:20px}
+}
+
 /* ---- contact page ---- */
 .inner-page .contact-copy > .eyebrow{margin-bottom:14px}
 .contact-form .form{margin-top:0}
@@ -977,8 +986,6 @@ html{scroll-padding-top:76px}
   .page-meta{font-size:15px}
   .inner-page .prose h2{font-size:26px}
   .doc-figure{aspect-ratio:2/1}
-  .page-hero.has-portrait .page-hero-in{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:48px;align-items:center}
-  .page-hero-portrait{order:0;width:auto;aspect-ratio:4/5;margin:0;border-radius:var(--r-lg)}
   .sitemap{grid-template-columns:repeat(2,minmax(0,1fr))}
   .post-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .cta-band h2{font-size:32px}
@@ -987,7 +994,6 @@ html{scroll-padding-top:76px}
 @media (min-width:1024px){
   .page-hero{padding:64px 0 72px}
   .page-hero h1{font-size:46px}
-  .page-hero.has-portrait .page-hero-in{grid-template-columns:minmax(0,1fr) 250px;gap:72px}
   .sitemap{grid-template-columns:repeat(3,minmax(0,1fr))}
   .doc.has-toc{grid-template-columns:minmax(0,1fr) 260px;gap:72px;align-items:start}
   .doc.has-toc .prose{grid-column:1;grid-row:1}

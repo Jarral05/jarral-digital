@@ -3,11 +3,11 @@
  * Single page.
  *
  * The Services page and the services under it are drawn from
- * inc/services.php. Any other page built from the old service patterns
- * prints bare, as it always has. Every other page (About, Process, the
- * policies) gets the inner page layout: the page hero, the content with its
- * "On this page" list, and the closing call to action. .inner-page scopes
- * that layout's styles, so the service pages are untouched by it.
+ * inc/services.php. Every other page (Process, the policies, any new page)
+ * gets the inner page layout: the page hero, the content with its "On this
+ * page" list, and the closing call to action. .inner-page scopes that
+ * layout's styles, so the service pages are untouched by it. About, Contact
+ * and Sitemap have their own page-{slug}.php files.
  *
  * @package JarralDigital
  */
@@ -28,10 +28,6 @@ while ( have_posts() ) :
 		} else {
 			get_template_part( 'template-parts/service/overview' );
 		}
-	elseif ( jd_is_pattern_page() ) :
-		// Built from the section patterns, which bring their own bands and
-		// heading. See jd_is_pattern_page() in inc/template-tags.php.
-		the_content();
 	else :
 		?>
 		<div class="inner-page">
