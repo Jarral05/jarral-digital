@@ -37,58 +37,6 @@ function jd_get_hero_terms() {
 }
 
 /**
- * The six services. 'icon' matches a file in assets/icons/.
- *
- * @return array<int,array<string,string>>
- */
-function jd_get_services() {
-	return array(
-		array(
-			'icon'  => 'wordpress',
-			'name'  => 'WordPress development',
-			'desc'  => 'Custom themes, plugins and builds. Not a template with your logo dropped on it.',
-			'price' => 'From $450',
-			'url'   => '/services/wordpress-development/',
-		),
-		array(
-			'icon'  => 'webapps',
-			'name'  => 'Headless WordPress and web apps',
-			'desc'  => 'React and Node front ends on a WordPress or custom back end, for teams who have outgrown a standard site.',
-			'price' => 'From $900',
-			'url'   => '/services/web-applications/',
-		),
-		array(
-			'icon'  => 'forms',
-			'name'  => 'Forms, PDFs and document automation',
-			'desc'  => 'Multi-step forms that generate contracts, quotes and certificates automatically.',
-			'price' => 'From $180',
-			'url'   => '/services/forms-and-pdfs/',
-		),
-		array(
-			'icon'  => 'portals',
-			'name'  => 'Membership sites and client portals',
-			'desc'  => 'Logins, gated content, member dashboards and role-based access.',
-			'price' => 'From $300',
-			'url'   => '/services/portals-and-memberships/',
-		),
-		array(
-			'icon'  => 'ai',
-			'name'  => 'AI agents and automation',
-			'desc'  => 'Custom GPTs, support agents trained on your documents, and workflows that remove repetitive admin.',
-			'price' => 'From $600',
-			'url'   => '/services/ai-agents/',
-		),
-		array(
-			'icon'  => 'care',
-			'name'  => 'Website care plans',
-			'desc'  => 'Updates, backups, security monitoring, speed and technical SEO. Ongoing, so nothing breaks quietly.',
-			'price' => 'From $129/mo',
-			'url'   => '/services/care-plans/',
-		),
-	);
-}
-
-/**
  * The three failure modes, each with the fix that answers it.
  *
  * @return array<int,array{h:string,p:string,fix:string}>

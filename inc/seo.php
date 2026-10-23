@@ -80,18 +80,25 @@ function jd_business_schema() {
 add_action( 'wp_head', 'jd_business_schema', 20 );
 
 /**
- * FAQPage schema, built from the same array the homepage renders.
- * One source of truth means the page and the schema can never disagree,
- * which is exactly the mismatch Google penalises.
+ * FAQPage schema, built from the same array the page renders: the homepage
+ * FAQs, or a service page's own (inc/services.php). One source of truth means
+ * the page and the schema can never disagree, which is exactly the mismatch
+ * Google penalises.
  */
 function jd_faq_schema() {
 
-	if ( ! is_front_page() || ! function_exists( 'jd_get_faqs' ) ) {
-		return;
+	$faqs = array();
+	if ( is_front_page() && function_exists( 'jd_get_faqs' ) ) {
+		$faqs = jd_get_faqs();
+	} elseif ( is_page() && function_exists( 'jd_service_for_page' ) ) {
+		$service = jd_service_for_page();
+		if ( $service ) {
+			$faqs = empty( $service['overview'] ) ? $service['faqs'] : jd_services_overview()['faqs'];
+		}
 	}
 
 	$items = array();
-	foreach ( jd_get_faqs() as $faq ) {
+	foreach ( $faqs as $faq ) {
 		$items[] = array(
 			'@type'          => 'Question',
 			'name'           => $faq['q'],

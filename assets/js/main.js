@@ -66,7 +66,10 @@
 	/* ------------------------------------------------------------------
 	   Estimator
 
-	   EDIT PRICES HERE AND NOWHERE ELSE.
+	   The lowest figure and the service name come from the theme's service
+	   list (inc/services.php), printed as window.jdServices, so they always
+	   match the service pages. The low figures and names below are only the
+	   fallback if that is missing. Edit the rest here:
 	     base  : [lowest, highest] before extras
 	     weeks : timeline text
 	     opts  : ['Button label', amount added to the low figure]
@@ -99,10 +102,10 @@
 	   Enquiries list and the email subject.
 
 	   These are NOT the chip labels the visitor reads - the chips stay short
-	   and conversational. These match jd_get_services() in the theme word for
-	   word, so an enquiry from the estimator and an enquiry from a service
-	   page land under the same name in the admin instead of under two names
-	   for the same thing. Change one, change the other. */
+	   and conversational. They are the service names from the theme, so an
+	   enquiry from the estimator and an enquiry from a service page land
+	   under the same name in the admin instead of under two names for the
+	   same thing. */
 	var NAMES = {
 		wp:     'WordPress development',
 		app:    'Headless WordPress and web apps',
@@ -110,6 +113,14 @@
 		portal: 'Membership sites and client portals',
 		ai:     'AI agents and automation'
 	};
+
+	var SERVICES = window.jdServices || {};
+	Object.keys(DATA).forEach(function (k) {
+		if (SERVICES[k]) {
+			DATA[k].base[0] = SERVICES[k].from;
+			NAMES[k] = SERVICES[k].name;
+		}
+	});
 
 	var elSvc  = document.getElementById('jdSvc');
 	var elOpt  = document.getElementById('jdOpt');

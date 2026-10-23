@@ -3,6 +3,44 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.7.0] - 2026-10-23
+
+### Changed
+- **The service pages are drawn from the theme.** The Services page and the
+  six service pages under it were Custom HTML blocks pasted into each page,
+  with every price and fact typed out several times. They now render from
+  `inc/services.php`, one entry per service: name, price, timeline, intro,
+  details, facts, "What you get" cards, steps, FAQs and form text. The
+  overview page's list, problem cards and figures (6 services, projects
+  from $180, care plans from $129/mo) are worked out from the same entries.
+- **Visitors see no change.** All seven pages render pixel-identical to
+  1.6.7 at 1440px and 390px. Their markup inside `<main>` matches the live
+  pages exactly, and every form tags enquiries with the same service name as
+  before. Home, About, Contact, Sitemap and the 404 are pixel-identical too.
+- **How pages are matched.** `jd_service_for_page()` picks out the page with
+  the slug "services" and any child of it whose slug is a key in
+  `jd_service_catalog()`. Any other page prints as it always has, including
+  a service page pasted in as HTML. The pages' own editor content is no
+  longer used. It is left in place, so reinstalling 1.6.7 brings the old
+  pages straight back.
+- **`jd_get_services()` moved to `inc/services.php`.** It is now built from
+  the catalog and returns exactly what it did before, so the homepage cards,
+  footer, mega menu and 404 are unchanged.
+- **The estimator's names and starting prices come from the theme.** They
+  are printed as `window.jdServices` on the homepage, so a price changed in
+  `inc/services.php` changes the service page, the cards and the estimator
+  together. main.js keeps its own figures as a fallback, and its high
+  figures, timelines and extras stay there.
+
+### Added
+- **Service pages carry FAQPage schema.** It is built from each page's own
+  questions, using the same function as the homepage (`jd_faq_schema()`).
+- **The block editor warns on service pages.** It says the page is drawn
+  from the theme, so content edits there will not show.
+- **21 icon files** (`assets/icons/get-*.svg`) for the "What you get" and
+  problem cards. They were repeated inline before; 42 uses came down to 21
+  icons.
+
 ## [1.6.7] - 2026-10-23
 
 ### Added

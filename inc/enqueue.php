@@ -39,6 +39,12 @@ function jd_assets() {
 			'in_footer' => true,
 		)
 	);
+
+	// The estimator's service names and starting prices, from the same list
+	// the service pages use (inc/services.php).
+	if ( is_front_page() ) {
+		wp_add_inline_script( 'jd-main', 'window.jdServices=' . wp_json_encode( jd_estimator_services() ) . ';', 'before' );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'jd_assets' );
 
