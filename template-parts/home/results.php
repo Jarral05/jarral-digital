@@ -1,7 +1,6 @@
 <?php
 /**
- * Homepage: outcome figures. Sits straight after the work grid, so the
- * numbers read as proof of the projects above them.
+ * Homepage: service outcomes, without unverified numerical client claims.
  *
  * @package JarralDigital
  */
@@ -13,8 +12,8 @@ defined( 'ABSPATH' ) || exit;
 	<div class="wrap">
 		<div class="sec-head">
 			<div class="sec-title">
-				<p class="eyebrow">Results</p>
-				<h2>What clients get</h2>
+				<p class="eyebrow">What I build</p>
+				<h2>Built around your workflow</h2>
 			</div>
 		</div>
 

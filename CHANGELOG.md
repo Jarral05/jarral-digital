@@ -3,6 +3,24 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.7.2] - 2026-10-23
+
+### Changed
+- **Phase 0 launch copy.** The homepage now says "14+" client countries,
+  following the owner's confirmation. "120+" projects and "Building since
+  2020" remain unchanged.
+- **Replace the three placeholder results** with descriptions of forms,
+  websites and client portals. The section is now headed "Built around your
+  workflow"; it no longer presents unverified time savings, load times or
+  clinic results as completed client work. Its existing markup and layout
+  classes are retained.
+- **Consistent target markets.** The homepage About text now says "the Gulf"
+  instead of "Asia". The separate About page's editor content still needs
+  to be checked in WordPress.
+
+### Added
+- **LinkedIn link on About**, using the owner's supplied public profile.
+
 ## [1.7.1] - 2026-10-23
 
 ### Changed

@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 		</div>
 
 		<div class="who-body">
-			<p>I am Mohsin Jarral. I have been building websites and web applications since 2020, for professional services firms in the US, UK, Europe and Asia. There is no account manager and no junior handed your project. You work with the person writing the code.</p>
+			<p>I am Mohsin Jarral. I have been building websites and web applications since 2020, for professional services firms in the US, UK, Europe and the Gulf. There is no account manager and no junior handed your project. You work with the person writing the code.</p>
 			<p>Before development I trained as a mechanical engineer, which is probably why I care more about whether a system holds up than whether it looks clever.</p>
 
 			<dl class="who-facts">

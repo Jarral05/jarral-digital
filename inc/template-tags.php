@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
 function jd_get_hero_stats() {
 	return array(
 		array( 'k' => 'Projects delivered', 'v' => '120+' ),
-		array( 'k' => 'Client countries',   'v' => '14' ),
+		array( 'k' => 'Client countries',   'v' => '14+' ),
 		array( 'k' => 'Building since',     'v' => '2020' ),
 	);
 }
@@ -76,15 +76,16 @@ function jd_get_process() {
 }
 
 /**
- * Outcome figures. Replace the placeholders with real numbers before launch.
+ * What the builds deliver. Use service descriptions until measured client
+ * outcomes are available; do not present example figures as client results.
  *
  * @return array<int,array{big:string,p:string}>
  */
 function jd_get_results() {
 	return array(
-		array( 'big' => '12 hrs', 'p' => 'of monthly admin removed for a training provider, after manual enrolment emails were replaced with an automated portal.' ),
-		array( 'big' => '1.4s',   'p' => 'mobile load time for a consultancy, down from 6.2 seconds, with enquiries rising over the following quarter.' ),
-		array( 'big' => '0',      'p' => 'manual steps in a clinic intake process. The form now generates a completed PDF and emails it before the patient leaves the page.' ),
+		array( 'big' => 'Forms',   'p' => 'Client intake forms that generate PDFs from submitted details and pass information to the tools your team uses.' ),
+		array( 'big' => 'Sites',   'p' => 'Custom WordPress websites with responsive layouts, clear service pages and enquiry forms.' ),
+		array( 'big' => 'Portals', 'p' => 'Client areas with account access, private documents and dashboards built around the agreed workflow.' ),
 	);
 }
 
