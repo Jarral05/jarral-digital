@@ -3,6 +3,20 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.6.4] - 2026-10-23
+
+### Changed
+- **Homepage hero is two columns.** The six-row spec list under the buttons
+  ran the full page width, each label about 1000px from its value, and made
+  the hero 902px tall on desktop. Headline, intro and buttons now sit on the
+  left with the three working terms as one line under the buttons; the three
+  figures (120+, 14, 2020) sit large in a dark card on the right. Below 1024px
+  the card drops under the buttons as a three-up strip. The hero is now 527px
+  tall at 1440px and 696px at 375px (was 902px and 790px).
+  `jd_get_spec()` is replaced by `jd_get_hero_stats()` and
+  `jd_get_hero_terms()`, and the `.spec*` classes are gone. The card rises as
+  one piece in the load animation, which now ends at 0.8s instead of 0.96s.
+
 ## [1.6.3] - 2026-10-23
 
 ### Changed

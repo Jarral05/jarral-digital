@@ -85,16 +85,27 @@ button{font-family:inherit}
 .drawer-meta{padding:14px 20px 20px;font-size:13px;line-height:1.6;color:var(--on-pine)}
 .drawer-meta a{display:inline!important;padding:0!important;border:none!important;font-size:13px!important;color:var(--bone)!important;text-decoration:underline}
 
-/* ---- hero ---- */
-.hero{background:var(--pine);color:var(--bone);padding:52px 0 0}
-.hero h1{font-size:34px;font-weight:600;margin-bottom:20px}
-.hero .lede{font-size:17px;color:var(--on-pine);max-width:52ch;margin-bottom:28px}
-.hero-actions{display:flex;flex-direction:column;gap:12px;margin-bottom:44px}
+/* ---- hero ----
+   Pitch on the left, proof card on the right from 1024px. Below that the
+   card drops under the buttons as a three-up strip. The figures use the 600
+   weight on purpose: it is the one heading weight preloaded above the fold,
+   so the card does not swap fonts as the page loads. */
+.hero{background:var(--pine);color:var(--bone);padding:48px 0 56px}
+.hero-grid{display:grid;gap:36px}
+.hero h1{font-size:34px;font-weight:600;margin-bottom:18px;text-wrap:balance}
+.hero .lede{font-size:17px;color:var(--on-pine);max-width:52ch;margin-bottom:28px;text-wrap:pretty}
+.hero-actions{display:flex;flex-direction:column;gap:12px}
 .hero-actions .btn{text-align:center}
-.spec{border-top:1px solid var(--line-dark)}
-.spec-row{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid var(--line-dark)}
-.spec-key{font-size:14px;color:var(--spec-key);flex-shrink:0}
-.spec-val{font-size:14px;font-weight:500;text-align:right}
+.hero-terms{list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:22px;font-size:14px;color:var(--on-pine)}
+.hero-terms li{display:flex;align-items:center;gap:9px}
+.hero-terms li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--spec-key);flex-shrink:0}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);background:var(--pine-deep);border:1px solid var(--line-dark);border-radius:var(--r-lg)}
+.hero-stat{display:flex;flex-direction:column;gap:6px;padding:16px 12px;border-left:1px solid var(--line-dark)}
+.hero-stat:first-child{border-left:0}
+/* The figure sits above its label visually; the dt stays first in the
+   source so a screen reader still announces "Projects delivered, 120+". */
+.hero-stat dd{order:-1;font-family:var(--font-head);font-size:26px;font-weight:600;line-height:1.1;letter-spacing:-0.02em}
+.hero-stat dt{font-size:12px;line-height:1.35;color:var(--spec-key)}
 
 .sec-head{margin-bottom:32px}
 .sec-head h2{font-size:27px;font-weight:600;margin-bottom:12px}
@@ -257,15 +268,18 @@ button{font-family:inherit}
   body{font-size:17px}
   .wrap{padding:0 32px}
   .band{padding:76px 0}
-  .hero{padding:72px 0 0}
+  .hero{padding:64px 0 72px}
   .hero h1{font-size:48px}
   .hero .lede{font-size:19px}
   .hero-actions{flex-direction:row;gap:14px}
+  .hero-terms{font-size:15px}
+  .hero-stat{padding:20px 24px}
+  .hero-stat dd{font-size:34px}
+  .hero-stat dt{font-size:14px}
   .sec-head h2{font-size:34px}
   .prob{grid-template-columns:repeat(3,1fr);gap:32px}
   .work{grid-template-columns:repeat(2,1fr)}
   .results{grid-template-columns:repeat(3,1fr)}
-  .spec-row{padding:16px 0}
   .form-row{grid-template-columns:1fr 1fr}
   .foot-cols{grid-template-columns:repeat(3,1fr)}
   .est{padding:32px}
@@ -276,11 +290,14 @@ button{font-family:inherit}
   .burger{display:none}
   .drawer{display:none!important}
   .band{padding:96px 0}
-  .hero{padding:96px 0 0}
-  .hero h1{font-size:60px;max-width:16ch}
+  .hero{padding:80px 0 88px}
+  .hero-grid{grid-template-columns:minmax(0,1fr) 300px;gap:72px;align-items:center}
+  .hero h1{font-size:clamp(46px,4.6vw,56px)}
+  .hero-stats{grid-template-columns:1fr}
+  .hero-stat{padding:22px 28px;border-left:0;border-top:1px solid var(--line-dark)}
+  .hero-stat:first-child{border-top:0}
+  .hero-stat dd{font-size:40px}
   .sec-head h2{font-size:38px}
-  .spec-row{padding:18px 0}
-  .spec-key,.spec-val{font-size:15px}
   .foot-cols{grid-template-columns:2fr 1fr 1fr 1fr}
 }
 
@@ -307,9 +324,9 @@ html{scroll-padding-top:76px}
   border-bottom:1px solid var(--line-dark);font-size:16px}
 .foot ul{list-style:none;display:grid;gap:8px;margin:0;padding:0}
 
-/* Definition lists used for the spec bar and the about facts */
-.spec{margin:0}
-.spec-row dt,.spec-row dd,.who-facts dt,.who-facts dd{margin:0}
+/* Definition lists used for the hero stats and the about facts */
+.hero-stats{margin:0}
+.hero-stat dt,.hero-stat dd,.who-facts dt,.who-facts dd{margin:0}
 
 /* Blog and page content */
 .prose{max-width:68ch;font-size:17px}
@@ -410,21 +427,20 @@ html{scroll-padding-top:76px}
 @keyframes jd-flash{0%{background:rgba(247,247,244,.14)}100%{background:transparent}}
 
 /* --- The one page-load moment: the hero, in sequence --------------------- */
+/* The card rises as one piece. Staggering the figures inside it would leave
+   an empty dark box on screen for the first quarter-second. */
 .hero h1,
 .hero .lede,
 .hero-actions,
-.spec-row{
+.hero-terms,
+.hero-stats{
   animation:jd-rise .5s cubic-bezier(.22,.61,.36,1) both;
 }
 .hero h1{animation-delay:.02s}
 .hero .lede{animation-delay:.10s}
 .hero-actions{animation-delay:.18s}
-.spec-row:nth-child(1){animation-delay:.26s}
-.spec-row:nth-child(2){animation-delay:.30s}
-.spec-row:nth-child(3){animation-delay:.34s}
-.spec-row:nth-child(4){animation-delay:.38s}
-.spec-row:nth-child(5){animation-delay:.42s}
-.spec-row:nth-child(6){animation-delay:.46s}
+.hero-terms{animation-delay:.24s}
+.hero-stats{animation-delay:.30s}
 
 /* --- Work cards: a border change, not a lift ---------------------------- */
 /* A lift needs a shadow, and a shadow on a flat design looks bolted on. */
@@ -455,7 +471,7 @@ html{scroll-padding-top:76px}
 
 /* --- Respect the system setting. Non-negotiable. ------------------------ */
 @media (prefers-reduced-motion:reduce){
-  .hero h1,.hero .lede,.hero-actions,.spec-row{animation:none}
+  .hero h1,.hero .lede,.hero-actions,.hero-terms,.hero-stats{animation:none}
   .est-fig.jd-changed{animation:none}
   .work-card:hover .work-shot img{transform:none}
   *{transition-duration:.01ms!important;animation-duration:.01ms!important}

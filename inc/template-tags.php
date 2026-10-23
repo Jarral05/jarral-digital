@@ -11,18 +11,28 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Hero specification rows.
+ * Hero proof figures, set large in the card beside the headline.
  *
  * @return array<int,array{k:string,v:string}>
  */
-function jd_get_spec() {
+function jd_get_hero_stats() {
 	return array(
 		array( 'k' => 'Projects delivered', 'v' => '120+' ),
 		array( 'k' => 'Client countries',   'v' => '14' ),
 		array( 'k' => 'Building since',     'v' => '2020' ),
-		array( 'k' => 'You work with',      'v' => 'Me, directly' ),
-		array( 'k' => 'Reply time',         'v' => 'Within 12 hours' ),
-		array( 'k' => 'Calls',              'v' => 'Optional, on request' ),
+	);
+}
+
+/**
+ * Hero working terms, set as one line under the buttons.
+ *
+ * @return array<int,string>
+ */
+function jd_get_hero_terms() {
+	return array(
+		'Reply within 12 hours',
+		'You work with me directly',
+		'Calls optional',
 	);
 }
 
