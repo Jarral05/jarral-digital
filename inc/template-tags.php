@@ -89,23 +89,26 @@ function jd_get_services() {
 }
 
 /**
- * The three failure modes.
+ * The three failure modes, each with the fix that answers it.
  *
- * @return array<int,array{h:string,p:string}>
+ * @return array<int,array{h:string,p:string,fix:string}>
  */
 function jd_get_problems() {
 	return array(
 		array(
-			'h' => 'Quotes that grow',
-			'p' => 'You agree a price, then every change becomes a variation. The final invoice looks nothing like the estimate.',
+			'h'   => 'Quotes that grow',
+			'p'   => 'You agree a price, then every change becomes a variation. The final invoice looks nothing like the estimate.',
+			'fix' => 'Fixed scope, agreed in writing before work starts.',
 		),
 		array(
-			'h' => 'Developers who go quiet',
-			'p' => 'Work starts well. Then replies slow down, deadlines slip, and you are chasing someone who has moved on to a better-paying job.',
+			'h'   => 'Developers who go quiet',
+			'p'   => 'Work starts well. Then replies slow down, deadlines slip, and you are chasing someone who has moved on to a better-paying job.',
+			'fix' => 'A reply within twelve hours, every working day.',
 		),
 		array(
-			'h' => 'Sites that break on update',
-			'p' => 'A plugin updates, the contact form stops sending, and nobody notices until a client mentions it three weeks later.',
+			'h'   => 'Sites that break on update',
+			'p'   => 'A plugin updates, the contact form stops sending, and nobody notices until a client mentions it three weeks later.',
+			'fix' => 'A care plan keeps the site working after launch.',
 		),
 	);
 }

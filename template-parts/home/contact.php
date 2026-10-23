@@ -13,6 +13,7 @@ defined( 'ABSPATH' ) || exit;
 		<div class="contact-cols">
 
 			<div class="contact-copy">
+				<p class="eyebrow">Contact</p>
 				<h2>Tell me what you are building</h2>
 				<p class="lede">You will have a reply within twelve hours with scope, a price and a timeline. From me, not an assistant.</p>
 

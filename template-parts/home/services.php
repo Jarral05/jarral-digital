@@ -11,7 +11,10 @@ defined( 'ABSPATH' ) || exit;
 <section class="band band-tint" id="services">
 	<div class="wrap">
 		<div class="sec-head">
-			<h2>What I build</h2>
+			<div class="sec-title">
+				<p class="eyebrow">Services</p>
+				<h2>What I build</h2>
+			</div>
 			<p>Six things I do properly, rather than everything done adequately. You work with me directly on all of them.</p>
 		</div>
 

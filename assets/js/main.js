@@ -147,7 +147,6 @@
 			});
 
 			elStep.hidden = false;
-			elOut.classList.add('show');
 			render();
 		});
 

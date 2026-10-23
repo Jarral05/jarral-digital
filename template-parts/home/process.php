@@ -8,10 +8,13 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<section class="band band-tint" id="process">
+<section class="band" id="process">
 	<div class="wrap">
 		<div class="sec-head">
-			<h2>How a project runs</h2>
+			<div class="sec-title">
+				<p class="eyebrow">Process</p>
+				<h2>How a project runs</h2>
+			</div>
 			<p>The same four steps every time, so you always know what happens next.</p>
 		</div>
 

@@ -3,6 +3,49 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.6.5] - 2026-10-23
+
+### Changed
+- **The homepage below the hero follows the hero's design.** Every section
+  now has a small uppercase eyebrow over its heading. From 1024px the heading
+  and its intro sit side by side. Section padding is 80/64/52px (was
+  96/76/56). The page is 7,070px tall at 1440px (was 8,435) and 9,902px at
+  390px (was 12,621).
+- **The new styles apply to the homepage only.** front-page.php wraps the
+  sections in `.homepage`, and the shared rules are scoped to it, because the
+  service pages also use `.band`, `.sec-head`, `.steps`, `.svc` and `.faq`.
+  The Services page renders pixel-identical before and after at 1440px and
+  390px.
+- **Each problem is paired with its fix.** The three problems are cards, each
+  ending in its fix with a tick. `jd_get_problems()` gains a `fix` key, and
+  the separate tinted box that listed the fixes is gone.
+- **The estimator is a two-column panel.** It uses the same deep pine panel
+  as the hero card: the choices on the left and the range on the right from
+  1024px. The result panel is visible from the start with a prompt, and
+  step 2 shows a hint until a type is picked, so the box is never half empty
+  and nothing jumps on the first click. `.est-out.show` is no longer used,
+  and main.js no longer adds it.
+- **Projects show three across.** On desktop they are rounded white cards in
+  a row of three, with excerpts clamped to three lines. On phones they are
+  one swipe row, with the next card peeking in, instead of six stacked
+  full-height cards. The row is keyboard-scrollable (`tabindex="0"`,
+  labelled "Projects"). "View the site" gains an arrow to mark the external
+  link.
+- **Results come straight after the projects.** They now sit on the tint
+  band, and Process moves to bone, so the bands still alternate. The three
+  figures share one rounded card split by hairlines, the light-band twin of
+  the hero's proof card.
+- **Process is a numbered timeline.** It runs down the page below 1024px and
+  across it above.
+- **About puts a small portrait beside the heading on phones and tablets.**
+  Before, a full-width photo pushed the heading most of a screen down. The
+  four facts are a 2x2 grid instead of four rows.
+- **The FAQ has an intro column.** On desktop a sticky intro sits beside the
+  list, with a link to the form and the email address.
+- **Service cards are compact rows on phones.** The icon sits beside the
+  text and the price divider is dropped. Between 768px and 900px they show
+  two across instead of one stretched column.
+
 ## [1.6.4] - 2026-10-23
 
 ### Changed

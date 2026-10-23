@@ -1,6 +1,6 @@
 <?php
 /**
- * Homepage: the three failure modes.
+ * Homepage: the three failure modes, each paired with its fix.
  *
  * @package JarralDigital
  */
@@ -10,17 +10,22 @@ defined( 'ABSPATH' ) || exit;
 
 <section class="band">
 	<div class="wrap">
-		<div class="sec-head"><h2>Most web projects fail the same three ways</h2></div>
+		<div class="sec-head">
+			<div class="sec-title">
+				<p class="eyebrow">Why projects fail</p>
+				<h2>Most web projects fail the same three ways</h2>
+			</div>
+			<p>Each one has a fix built into how I work.</p>
+		</div>
 
 		<div class="prob">
 			<?php foreach ( jd_get_problems() as $p ) : ?>
 				<div class="prob-item">
 					<h3><?php echo esc_html( $p['h'] ); ?></h3>
 					<p><?php echo esc_html( $p['p'] ); ?></p>
+					<p class="prob-fix"><?php echo esc_html( $p['fix'] ); ?></p>
 				</div>
 			<?php endforeach; ?>
 		</div>
-
-		<p class="prob-close">Fixed scope agreed in writing before anything starts. A reply within twelve hours, every working day. And a care plan so the site keeps working after launch.</p>
 	</div>
 </section>

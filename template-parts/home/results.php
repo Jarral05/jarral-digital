@@ -1,6 +1,7 @@
 <?php
 /**
- * Homepage: outcome figures.
+ * Homepage: outcome figures. Sits straight after the work grid, so the
+ * numbers read as proof of the projects above them.
  *
  * @package JarralDigital
  */
@@ -8,9 +9,14 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<section class="band">
+<section class="band band-tint" id="results">
 	<div class="wrap">
-		<div class="sec-head"><h2>What clients get</h2></div>
+		<div class="sec-head">
+			<div class="sec-title">
+				<p class="eyebrow">Results</p>
+				<h2>What clients get</h2>
+			</div>
+		</div>
 
 		<div class="results">
 			<?php foreach ( jd_get_results() as $r ) : ?>

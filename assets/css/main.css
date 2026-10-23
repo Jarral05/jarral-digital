@@ -112,11 +112,26 @@ button{font-family:inherit}
 .sec-head p{color:var(--ink-soft);max-width:var(--measure)}
 .band-dark .sec-head p{color:var(--on-pine)}
 
+/* Small label over a section heading. It is a <p> inside .sec-head, so the
+   colour rules name .sec-head too, or `.sec-head p` would repaint it. */
+.eyebrow{font-family:var(--font-head);font-size:12px;font-weight:700;line-height:1.3;
+  letter-spacing:.14em;text-transform:uppercase;color:#3C6B5C;margin-bottom:10px}
+.sec-head .eyebrow{color:#3C6B5C;max-width:none}
+.band-dark .eyebrow,.band-dark .sec-head .eyebrow{color:var(--spec-key)}
+
 /* ---- problem ---- */
-.prob{display:grid;gap:28px}
-.prob-item h3{font-size:19px;font-weight:600;margin-bottom:8px}
-.prob-item p{color:var(--ink-soft);max-width:52ch}
-.prob-close{margin-top:36px;padding:24px;background:var(--pine-tint);font-size:17px;max-width:var(--measure)}
+.prob{display:grid;gap:14px}
+.prob-item{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);
+  border-radius:var(--r-md);padding:22px}
+.prob-item h3{font-size:18px;font-weight:600;margin-bottom:8px}
+.prob-item p{color:var(--ink-soft);font-size:15px;line-height:1.6;margin-bottom:16px}
+/* margin-top:auto lines the three fixes up on one row, as on the service cards. */
+.prob-item .prob-fix{display:flex;gap:10px;align-items:flex-start;margin:auto 0 0;
+  padding-top:14px;border-top:1px solid var(--line);
+  color:var(--pine);font-size:14.5px;font-weight:600;line-height:1.5}
+.prob-fix::before{content:"";flex-shrink:0;width:18px;height:18px;margin-top:1px;border-radius:50%;
+  background:var(--pine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.6 6.3 5 8.6 9.4 3.6' fill='none' stroke='%23F7F7F4' stroke-width='1.8'/%3E%3C/svg%3E") center/11px no-repeat}
+@media (min-width:901px){ .prob{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px} }
 
 /* ---- services ---- */
 /* Service cards: the same shape as .get on the service pages. */
@@ -146,34 +161,53 @@ button{font-family:inherit}
 }
 
 /* ---- estimator ---- */
-.est{background:var(--pine-deep);border:1px solid var(--line-dark);padding:24px}
-.est-step{margin-bottom:26px}
+/* The same panel as the hero's proof card: deep pine, hairline, large radius.
+   Choices on the left, the answer on the right from 1024px. */
+.est{background:var(--pine-deep);border:1px solid var(--line-dark);border-radius:var(--r-lg);overflow:hidden}
+.est-steps{padding:22px}
+.est-step + .est-step{margin-top:24px}
 .est-label{font-size:14px;font-weight:600;color:var(--on-pine);margin-bottom:12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{background:transparent;border:1px solid var(--line-dark);color:var(--bone);border-radius:var(--r-sm);padding:11px 14px;font-size:14px;cursor:pointer;transition:background .15s ease,border-color .15s ease}
 .chip:hover{border-color:#5E8A7C}
 .chip[aria-pressed="true"]{background:var(--bone);color:var(--pine);border-color:var(--bone);font-weight:600}
-.est-out{border-top:1px solid var(--line-dark);padding-top:22px;display:none}
-.est-out.show{display:block}
-.est-fig{font-family:var(--font-head);font-size:36px;font-weight:700;color:var(--bone);line-height:1;margin-bottom:8px}
+.est-hint{font-size:14px;color:var(--spec-key)}
+.est-out{border-top:1px solid var(--line-dark);padding:22px}
+.est-k{font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--spec-key);margin-bottom:8px}
+.est-fig{font-family:var(--font-head);font-size:32px;font-weight:600;letter-spacing:-0.02em;
+  color:var(--bone);line-height:1.1;margin-bottom:8px}
 .est-meta{font-size:15px;color:var(--on-pine);margin-bottom:18px}
+.est-out .btn{display:block;text-align:center}
 .est-note{font-size:13px;color:var(--spec-key);margin-top:14px}
 
 /* ---- work ---- */
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
 .filter{background:transparent;border:1px solid var(--line);color:var(--ink-soft);border-radius:var(--r-sm);padding:10px 14px;font-size:14px;cursor:pointer;transition:background .15s ease}
 .filter:hover{border-color:var(--pine)}
 .filter[aria-pressed="true"]{background:var(--pine);color:var(--bone);border-color:var(--pine);font-weight:600}
 .work{display:grid;gap:20px}
-.work-card{background:var(--bone);border:1px solid var(--line)}
+.work-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);
+  border-radius:var(--r-md);overflow:hidden}
 .work-card[hidden]{display:none}
 .work-shot{aspect-ratio:16/10;background:var(--pine-tint);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;color:#5A6861;overflow:hidden}
 .work-shot img{width:100%;height:100%;object-fit:cover;object-position:top center}
-.work-body{padding:24px}
-.work-type{font-size:14px;color:var(--ink-soft);margin-bottom:6px}
-.work-card h3{font-size:19px;font-weight:600;margin-bottom:10px}
-.work-card p{font-size:15px;color:var(--ink-soft);margin-bottom:14px}
-.work-link{font-size:14px;font-weight:600;color:var(--pine);text-decoration:underline;text-underline-offset:3px}
+.work-body{display:flex;flex-direction:column;flex:1;padding:20px}
+.work-type{font-size:13px;color:var(--ink-soft);margin-bottom:4px}
+.work-card h3{font-size:17px;font-weight:600;line-height:1.3;margin-bottom:8px}
+/* Three lines, so the cards in a row come out the same height. */
+.work-card p{font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin-bottom:14px;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
+.work-link{margin-top:auto;align-self:flex-start;font-size:14px;font-weight:600;color:var(--pine);
+  text-decoration:underline;text-underline-offset:3px}
+/* Phones: one swipe row instead of six full-height cards stacked. The next
+   card peeks in from the right edge, which is what says the row scrolls. */
+@media (max-width:767px){
+  .work{grid-auto-flow:column;grid-auto-columns:84%;gap:14px;overflow-x:auto;
+    scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+    margin:0 -20px;padding:0 20px 6px;scroll-padding-inline:20px}
+  .work-card{scroll-snap-align:start}
+}
 
 /* ---- process ---- */
 .steps{border-top:1px solid var(--line)}
@@ -183,28 +217,41 @@ button{font-family:inherit}
 .step p{color:var(--ink-soft);font-size:15px;max-width:52ch}
 
 /* ---- results ---- */
-.results{display:grid;gap:24px}
-.result{background:var(--bone);border-left:3px solid var(--pine);padding:20px 22px}
-.result .big{font-family:var(--font-head);font-size:32px;font-weight:700;color:var(--pine);line-height:1;margin-bottom:10px}
-.result p{font-size:15px;color:var(--ink-soft)}
+/* One card split three ways: the light-band twin of the hero's proof card. */
+.results{display:grid;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg)}
+.result{padding:22px 24px;border-top:1px solid var(--line)}
+.result:first-child{border-top:0}
+.result .big{font-family:var(--font-head);font-size:32px;font-weight:600;letter-spacing:-0.02em;
+  color:var(--pine);line-height:1.1;margin-bottom:8px}
+.result p{font-size:15px;line-height:1.6;color:var(--ink-soft)}
 
 /* ---- who ---- */
-.who{display:grid;grid-template-columns:300px minmax(0,1fr);gap:48px;align-items:start}
-.who-photo{aspect-ratio:4/5;background:var(--pine-tint);border:1px solid var(--line);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:13px;color:#5A6861;overflow:hidden;max-width:none}
+.who{display:grid;grid-template-columns:280px minmax(0,1fr);
+  grid-template-areas:"photo head" "photo body";column-gap:56px;align-items:start}
+.who-photo{grid-area:photo;aspect-ratio:4/5;background:var(--pine-tint);border:1px solid var(--line);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;color:#5A6861;overflow:hidden}
 .who-photo img{width:100%;height:100%;object-fit:cover}
-.who h2{font-size:27px;font-weight:600;margin-bottom:14px}
-.who p{color:var(--ink-soft);max-width:56ch;margin-bottom:14px}
-.who-facts{border:1px solid #C2D6CC;border-radius:var(--r-md);
-  padding:4px 18px;background:rgba(255,255,255,.55);margin-top:24px}
-.who-facts div{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-bottom:1px solid #C2D6CC}
-.who-facts div:last-child{border-bottom:0}
-.who-facts dt{color:#3C6B5C;font-size:14.5px}
-.who-facts dd{margin:0;font-weight:600;font-size:14.5px;
-  text-align:right;color:var(--pine)}
+.who-photo span{padding:10px}
+.who-head{grid-area:head;margin-bottom:16px}
+.who-body{grid-area:body}
+.who h2{font-size:26px;font-weight:600}
+.who-body p{color:var(--ink-soft);max-width:56ch;margin-bottom:14px}
+/* Four facts as a 2x2 grid. The 1px gap over a line-coloured background
+   draws the dividers, so no cell needs to know where it sits. */
+.who-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin-top:22px;
+  background:#C2D6CC;border:1px solid #C2D6CC;border-radius:var(--r-md);overflow:hidden}
+.who-facts div{background:#F3F7F5;padding:13px 16px}
+.who-facts dt{color:#3C6B5C;font-size:13px;margin-bottom:2px}
+.who-facts dd{font-weight:600;font-size:14.5px;line-height:1.45;color:var(--pine)}
 
+/* Phones and tablets: a small portrait beside the heading, text below. A
+   full-width photo here pushed the heading most of a screen down. */
 @media (max-width:900px){
-  .who{grid-template-columns:1fr;gap:28px}
-  .who-photo{max-width:260px}
+  .who{grid-template-columns:88px minmax(0,1fr);grid-template-areas:"photo head" "body body";
+    column-gap:18px;align-items:center}
+  .who-photo{aspect-ratio:1/1;font-size:10px;line-height:1.35}
+  .who-photo span{padding:6px}
+  .who-head{margin-bottom:0}
+  .who-body{margin-top:20px}
 }
 
 /* ---- faq ---- */
@@ -277,13 +324,14 @@ button{font-family:inherit}
   .hero-stat dd{font-size:34px}
   .hero-stat dt{font-size:14px}
   .sec-head h2{font-size:34px}
-  .prob{grid-template-columns:repeat(3,1fr);gap:32px}
   .work{grid-template-columns:repeat(2,1fr)}
-  .results{grid-template-columns:repeat(3,1fr)}
+  .results{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .result{padding:26px 28px;border-top:0;border-left:1px solid var(--line)}
+  .result:first-child{border-left:0}
   .form-row{grid-template-columns:1fr 1fr}
   .foot-cols{grid-template-columns:repeat(3,1fr)}
-  .est{padding:32px}
-  .who h2{font-size:34px}
+  .est-steps,.est-out{padding:28px}
+  .who h2{font-size:32px}
 }
 @media (min-width:1024px){
   .nav-links{display:flex;gap:28px;align-items:center}
@@ -298,6 +346,12 @@ button{font-family:inherit}
   .hero-stat:first-child{border-top:0}
   .hero-stat dd{font-size:40px}
   .sec-head h2{font-size:38px}
+  .est{display:grid;grid-template-columns:minmax(0,1fr) 340px}
+  .est-steps{padding:30px}
+  .est-out{padding:30px;border-top:0;border-left:1px solid var(--line-dark)}
+  .work{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .result .big{font-size:40px}
+  .who h2{font-size:36px}
   .foot-cols{grid-template-columns:2fr 1fr 1fr 1fr}
 }
 
@@ -684,7 +738,7 @@ html{scroll-padding-top:76px}
 .contact-cols{display:grid;
   grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
   gap:56px;align-items:start}
-.contact-copy h2{font-size:30px;font-weight:600;margin-bottom:16px;
+.contact-copy h2{font-size:26px;font-weight:600;margin-bottom:16px;
   max-width:16ch}
 .contact-copy .lede{font-size:17px;color:var(--on-pine);
   margin-bottom:26px;max-width:46ch}
@@ -701,3 +755,72 @@ html{scroll-padding-top:76px}
 .contact-meta a{color:var(--bone);text-underline-offset:3px}
 
 @media (max-width:900px){ .contact-cols{grid-template-columns:1fr;gap:34px} }
+
+/* ==========================================================================
+   HOMEPAGE
+
+   One rhythm for every section under the hero: tighter bands, an eyebrow
+   over each heading, and from 1024px the heading and its intro side by
+   side. Scoped to .homepage (the wrapper in front-page.php) because the
+   service pages share .band, .sec-head, .steps, .svc and .faq, and keep
+   their own look.
+   ========================================================================== */
+.homepage .band{padding:52px 0}
+.homepage h2{text-wrap:balance}
+.homepage .sec-head{margin-bottom:28px}
+.homepage .sec-head h2{font-size:26px;margin-bottom:0}
+.homepage .sec-head > p{margin-top:12px}
+
+/* Services on phones: compact rows, icon beside the text, instead of six
+   full cards. Same content, about half the height. */
+@media (max-width:767px){
+  .homepage .svc{gap:10px}
+  .homepage .svc-row{display:grid;grid-template-columns:24px minmax(0,1fr);column-gap:14px;padding:16px 18px}
+  .homepage .svc-ico{grid-row:1 / span 3;width:24px;height:24px;margin:1px 0 0}
+  .homepage .svc-name{margin-bottom:4px;line-height:1.35}
+  .homepage .svc-desc{font-size:14px;margin-bottom:6px}
+  .homepage .svc-price{padding-top:0;border-top:0}
+}
+/* Tablets: two across, as at 901-1100px, rather than one stretched column. */
+@media (min-width:768px) and (max-width:900px){
+  .homepage .svc{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* Process: a numbered timeline, down the page below 1024px, across it above. */
+.homepage .steps{display:grid;border-top:0}
+.homepage .step{position:relative;gap:16px;padding:0 0 26px;border-bottom:0}
+.homepage .step:last-child{padding-bottom:0}
+.homepage .step::before{content:"";position:absolute;left:18px;top:44px;bottom:6px;width:1px;background:var(--line)}
+.homepage .step:last-child::before{display:none}
+.homepage .step-n{display:flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;
+  border:1.5px solid var(--pine);border-radius:50%;background:var(--bone);font-size:13px}
+.homepage .step h3{font-size:17px;margin:7px 0 4px}
+
+/* FAQ: a short intro with a way to ask, beside the list from 1024px. */
+.faq-intro{margin-bottom:24px}
+.faq-intro h2{font-size:26px;font-weight:600;margin-bottom:12px}
+.faq-intro p:not(.eyebrow){color:var(--ink-soft);max-width:46ch}
+.faq-intro a{color:var(--pine);font-weight:500;text-underline-offset:3px}
+.homepage .faq{max-width:none}
+.homepage .faq summary{font-size:16px;padding:18px 0}
+
+@media (min-width:768px){
+  .homepage .band{padding:64px 0}
+  .homepage .sec-head h2,.faq-intro h2,.contact-copy h2{font-size:32px}
+}
+@media (min-width:1024px){
+  .homepage .band{padding:80px 0}
+  .homepage .sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:56px;align-items:end;margin-bottom:36px}
+  .homepage .sec-head > p{margin-top:0;max-width:48ch}
+  .homepage .sec-head h2,.faq-intro h2,.contact-copy h2{font-size:36px}
+
+  .homepage .steps{grid-template-columns:repeat(4,minmax(0,1fr));gap:32px}
+  .homepage .step{flex-direction:column;gap:0;padding:0}
+  .homepage .step::before{left:48px;right:-20px;top:18px;bottom:auto;width:auto;height:1px}
+  .homepage .step h3{margin:18px 0 6px}
+
+  .faq-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);gap:64px;align-items:start}
+  .faq-intro{position:sticky;top:100px;margin-bottom:0}
+  .homepage .faq summary{font-size:17px}
+}

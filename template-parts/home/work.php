@@ -27,7 +27,13 @@ $jd_terms = get_terms(
 
 <section class="band" id="work">
 	<div class="wrap">
-		<div class="sec-head"><h2>Recent projects</h2></div>
+		<div class="sec-head">
+			<div class="sec-title">
+				<p class="eyebrow">Work</p>
+				<h2>Recent projects</h2>
+			</div>
+			<p>A selection of recent builds for professional services firms.</p>
+		</div>
 
 		<?php if ( ! is_wp_error( $jd_terms ) && ! empty( $jd_terms ) ) : ?>
 			<div class="filters" id="filters" role="group" aria-label="Filter projects">
@@ -38,7 +44,11 @@ $jd_terms = get_terms(
 			</div>
 		<?php endif; ?>
 
-		<div class="work" id="workGrid">
+		<?php
+		// Below 768px the grid becomes a swipe row. tabindex lets a keyboard
+		// scroll it too, since cards without a live link have nothing to focus.
+		?>
+		<div class="work" id="workGrid" role="region" aria-label="Projects" tabindex="0">
 			<?php
 			if ( $jd_projects->have_posts() ) :
 				while ( $jd_projects->have_posts() ) :
@@ -68,7 +78,7 @@ $jd_terms = get_terms(
 							<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 34 ) ); ?></p>
 
 							<?php if ( $jd_url ) : ?>
-								<a class="work-link" href="<?php echo esc_url( $jd_url ); ?>" rel="noopener nofollow" target="_blank">View the site</a>
+								<a class="work-link" href="<?php echo esc_url( $jd_url ); ?>" rel="noopener nofollow" target="_blank">View the site<span aria-hidden="true"> &#8599;</span></a>
 							<?php endif; ?>
 						</div>
 					</article>
