@@ -15,6 +15,12 @@ if ( ! function_exists( 'jdf_form_shortcode' ) ) {
 	return;
 }
 
+// The editor analyzer needs the visible copy, not a live form or fresh nonces.
+if ( ! empty( $args['analysis'] ) ) {
+	echo '<h2>' . esc_html( $args['h'] ) . '</h2><p>' . esc_html( $args['p'] ) . '</p>';
+	return;
+}
+
 // The shortcode's own handler, called directly rather than through
 // do_shortcode(), so no heading or intro text has to survive being written
 // into a shortcode string and parsed back out.

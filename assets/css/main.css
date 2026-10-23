@@ -943,6 +943,10 @@ html{scroll-padding-top:76px}
 .sitemap-group a{display:inline-block;padding:3px 0;font-size:15px;color:var(--ink);text-decoration:none}
 .sitemap-group a:hover{color:var(--pine);text-decoration:underline;text-underline-offset:3px}
 .sitemap-xml{margin-top:24px;font-size:14px;color:var(--ink-soft)}
+.post-author{border-top:1px solid var(--line);padding-top:24px;padding-bottom:40px}
+.post-author h2{font-family:var(--font-head);font-size:22px;margin-bottom:10px}
+.post-author h2 a{color:var(--pine)}
+.post-author p:not(.eyebrow){max-width:68ch;color:var(--ink-soft)}
 .sitemap-xml a{color:var(--pine);text-underline-offset:3px}
 
 /* ---- empty states ---- */

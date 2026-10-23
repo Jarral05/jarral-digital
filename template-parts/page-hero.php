@@ -8,6 +8,7 @@
  *   title   The page heading.
  *   lede    Optional intro line.
  *   time    Optional array( ISO date, label ), printed first in the facts row as a <time>.
+ *   updated Optional array( ISO date, label ) for the article modification date.
  *   meta    Optional list of short facts, printed as a dotted row.
  *
  * @package JarralDigital
@@ -22,6 +23,7 @@ $jd_hero = wp_parse_args(
 		'title'  => '',
 		'lede'   => '',
 		'time'   => '',
+		'updated' => '',
 		'meta'   => array(),
 	)
 );
@@ -40,6 +42,9 @@ $jd_hero = wp_parse_args(
 			<ul class="page-meta">
 				<?php if ( $jd_hero['time'] ) : ?>
 					<li><time datetime="<?php echo esc_attr( $jd_hero['time'][0] ); ?>"><?php echo esc_html( $jd_hero['time'][1] ); ?></time></li>
+				<?php endif; ?>
+				<?php if ( $jd_hero['updated'] ) : ?>
+					<li><?php esc_html_e( 'Updated', 'jarral-digital' ); ?> <time datetime="<?php echo esc_attr( $jd_hero['updated'][0] ); ?>"><?php echo esc_html( $jd_hero['updated'][1] ); ?></time></li>
 				<?php endif; ?>
 				<?php foreach ( $jd_hero['meta'] as $jd_fact ) : ?>
 					<li><?php echo esc_html( $jd_fact ); ?></li>

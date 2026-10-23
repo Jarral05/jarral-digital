@@ -83,8 +83,7 @@ function jd_all_projects( $query ) {
 add_action( 'pre_get_posts', 'jd_all_projects' );
 
 /**
- * One Customizer setting: your portrait on the About section.
- * Everything else is content, and content belongs in the editor.
+ * Site identity and optional analytics settings. Page copy stays in the editor.
  */
 function jd_customize( $wp_customize ) {
 
@@ -116,5 +115,24 @@ function jd_customize( $wp_customize ) {
 			)
 		)
 	);
+
+	$wp_customize->add_setting( 'jd_author_user', array( 'default' => 0, 'sanitize_callback' => 'absint' ) );
+	$wp_customize->add_control( 'jd_author_user', array(
+		'label' => __( 'Mohsin Jarral\'s author account', 'jarral-digital' ),
+		'description' => __( 'Select your WordPress account to link your blog byline and Article schema to your About profile. Other authors keep their own identity.', 'jarral-digital' ),
+		'section' => 'jd_section', 'type' => 'dropdown-users',
+	) );
+	$wp_customize->add_setting( 'jd_cloudflare_token', array( 'default' => '', 'sanitize_callback' => 'jd_sanitize_analytics_token' ) );
+	$wp_customize->add_control( 'jd_cloudflare_token', array(
+		'label' => __( 'Cloudflare Web Analytics token', 'jarral-digital' ),
+		'description' => __( 'Optional. Paste the token from your Cloudflare Web Analytics snippet. Leave empty to disable. Use manual snippet installation in Cloudflare to avoid loading it twice.', 'jarral-digital' ),
+		'section' => 'jd_section', 'type' => 'text',
+	) );
+	$wp_customize->add_setting( 'jd_analytics_policy_ready', array( 'default' => false, 'sanitize_callback' => 'rest_sanitize_boolean' ) );
+	$wp_customize->add_control( 'jd_analytics_policy_ready', array(
+		'label' => __( 'My policies have been updated for Cloudflare Web Analytics', 'jarral-digital' ),
+		'description' => __( 'Publish the Cookie and Privacy policy updates first. Analytics loads only with a valid token and this confirmation. Logged-in visits and previews are excluded. Purge page/CDN caches after changing these settings.', 'jarral-digital' ),
+		'section' => 'jd_section', 'type' => 'checkbox',
+	) );
 }
 add_action( 'customize_register', 'jd_customize' );

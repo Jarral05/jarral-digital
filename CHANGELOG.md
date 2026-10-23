@@ -3,6 +3,33 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.0] - 2026-10-23
+
+### Added
+- **Technical SEO foundation.** The theme extends Rank Math's JSON-LD graph
+  with one business entity, the founder's LinkedIn profile, six service
+  offers using the visible minimum USD prices, and the existing FAQs.
+  Breadcrumb schema follows visible trails; service layouts are unchanged.
+  A standalone graph remains available when Rank Math schema is inactive.
+- **Service-page analysis in Rank Math.** The editor analyser receives the
+  rendered content of the services overview and six service pages without
+  copying it into the editor or including interactive form fields.
+- **Optional Cloudflare Web Analytics.** Customizer settings accept a token
+  and confirmation that the policies are updated. Both are required; analytics
+  is off by default, and logged-in visits and previews are excluded.
+- **Blog author and modification date.** Articles show their actual author
+  and an Updated date when modified after publication. Select the owner's
+  WordPress account under Customise > Jarral Digital to connect that account
+  to the About Person entity. Other authors retain their own identity.
+- Local WordPress integration coverage for schema merging, service content,
+  author identities and analytics gates. Test files are excluded from releases.
+
+### Deployment
+- Keep analytics disabled until the Cookie and Privacy policies are updated.
+- Purge page/CDN caches after installation and after changing analytics settings.
+- Public indexability, sitemap, performance and validator checks remain part
+  of the Phase 1 launch; publishing this release does not complete that phase.
+
 ## [1.7.2] - 2026-10-23
 
 ### Changed

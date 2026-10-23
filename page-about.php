@@ -44,7 +44,7 @@ while ( have_posts() ) :
 
 				<div class="prose">
 					<?php echo jd_prepare_content( get_the_content() )['html']; // phpcs:ignore WordPress.Security.EscapeOutput -- the_content output, as the_content() prints it. ?>
-					<p><a href="https://www.linkedin.com/in/mohsin-zubair-b83998151/">Connect with me on LinkedIn</a>.</p>
+					<p><a href="<?php echo esc_url( jd_profile_links()[0] ); ?>">Connect with me on LinkedIn</a>.</p>
 				</div>
 			</div>
 		</section>

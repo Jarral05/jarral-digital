@@ -14,6 +14,7 @@ while ( have_posts() ) :
 
 	// The crumb back to the blog only exists if a Posts page is set.
 	$jd_blog = (int) get_option( 'page_for_posts' );
+	$jd_updated = get_post_modified_time( 'U', true ) > get_post_time( 'U', true );
 	?>
 	<div class="inner-page">
 		<article>
@@ -26,6 +27,7 @@ while ( have_posts() ) :
 					'title'  => get_the_title(),
 					'lede'   => has_excerpt() ? get_the_excerpt() : '',
 					'time'   => array( get_the_date( 'c' ), get_the_date() ),
+					'updated' => $jd_updated ? array( get_the_modified_date( 'c' ), get_the_modified_date() ) : '',
 					'meta'   => array( jd_reading_time() ),
 				)
 			);
@@ -37,6 +39,7 @@ while ( have_posts() ) :
 					'image' => true,
 				)
 			);
+			get_template_part( 'template-parts/post-author' );
 			?>
 		</article>
 		<?php get_template_part( 'template-parts/cta-band' ); ?>

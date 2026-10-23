@@ -34,7 +34,7 @@ jobs:
           SLUG="${{ steps.meta.outputs.slug }}"
           mkdir -p build/"$SLUG"
           rsync -a --exclude '.git' --exclude '.github' --exclude 'build' \
-                   --exclude '*.zip' --exclude '.gitignore' ./ build/"$SLUG"/
+                   --exclude '*.zip' --exclude '.gitignore' --exclude 'tests' ./ build/"$SLUG"/
           cd build && zip -qr "../$SLUG.zip" "$SLUG"
 
       - name: Publish the release

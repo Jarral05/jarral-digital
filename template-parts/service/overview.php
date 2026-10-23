@@ -69,5 +69,6 @@ get_template_part(
 		'h'       => $jd_o['form']['h'],
 		'p'       => $jd_o['form']['p'],
 		'service' => '',
+		'analysis' => ! empty( $args['analysis'] ),
 	)
 );
