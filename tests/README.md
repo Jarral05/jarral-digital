@@ -22,3 +22,8 @@ page, and use pretty permalinks. The test uses synthetic dates and temporarily
 changes theme mods and the site title, restoring them in a `finally` block.
 Block outbound HTTP/mail in the disposable installation. Theme test files are
 excluded from release ZIPs.
+
+`php tests/customizer-author.php` uses the same disposable installation and
+environment guard. It checks the actual author dropdown HTML and saves/restores
+a selection. User ID 1 must be an administrator. Rank Math is optional for this
+test; run it with the plugin active and inactive.

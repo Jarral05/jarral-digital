@@ -116,11 +116,15 @@ function jd_customize( $wp_customize ) {
 		)
 	);
 
+	$author_choices = array( 0 => __( 'Select your account', 'jarral-digital' ) );
+	foreach ( get_users( array( 'fields' => array( 'ID', 'display_name', 'user_login' ), 'orderby' => 'display_name' ) ) as $user ) {
+		$author_choices[ $user->ID ] = $user->display_name . ' (' . $user->user_login . ')';
+	}
 	$wp_customize->add_setting( 'jd_author_user', array( 'default' => 0, 'sanitize_callback' => 'absint' ) );
 	$wp_customize->add_control( 'jd_author_user', array(
 		'label' => __( 'Mohsin Jarral\'s author account', 'jarral-digital' ),
 		'description' => __( 'Select your WordPress account to link your blog byline and Article schema to your About profile. Other authors keep their own identity.', 'jarral-digital' ),
-		'section' => 'jd_section', 'type' => 'dropdown-users',
+		'section' => 'jd_section', 'type' => 'select', 'choices' => $author_choices,
 	) );
 	$wp_customize->add_setting( 'jd_cloudflare_token', array( 'default' => '', 'sanitize_callback' => 'jd_sanitize_analytics_token' ) );
 	$wp_customize->add_control( 'jd_cloudflare_token', array(

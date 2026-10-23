@@ -3,6 +3,15 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.1] - 2026-10-23
+
+### Fixed
+- The author-account setting now displays a dropdown of WordPress accounts
+  instead of a text input showing `0`. The previous unsupported control type
+  fell back to an input. Existing account selections are preserved.
+- Added regression checks for the rendered dropdown, account labels and saving
+  a selection. The selector works independently of Rank Math.
+
 ## [1.8.0] - 2026-10-23
 
 ### Added
