@@ -76,21 +76,24 @@ function jd_get_process() {
 }
 
 /**
- * What the builds deliver. Use service descriptions until measured client
- * outcomes are available; do not present example figures as client results.
+ * What I build, six cards in a 3x2 grid. Describe capabilities only; do not
+ * present example figures as client results until real case studies exist.
  *
  * @return array<int,array{big:string,p:string}>
  */
 function jd_get_results() {
 	return array(
-		array( 'big' => 'Forms',   'p' => 'Client intake forms that generate PDFs from submitted details and pass information to the tools your team uses.' ),
-		array( 'big' => 'Sites',   'p' => 'Custom WordPress websites with responsive layouts, clear service pages and enquiry forms.' ),
-		array( 'big' => 'Portals', 'p' => 'Client areas with account access, private documents and dashboards built around the agreed workflow.' ),
+		array( 'big' => 'WordPress',   'p' => 'Custom themes and plugins written for your site, with no page builder. Fast to load and simple for your team to edit.' ),
+		array( 'big' => 'MERN apps',   'p' => 'Web applications built with MongoDB, Express, React and Node: client dashboards, booking systems and internal tools.' ),
+		array( 'big' => 'AI software', 'p' => 'Custom AI-powered software, such as assistants that answer from your own documents and tools that draft and sort your admin.' ),
+		array( 'big' => 'Automation',  'p' => 'AI automations that connect your forms, inbox, CRM and documents, so follow-ups and PDFs happen without copying data by hand.' ),
+		array( 'big' => 'Portals',     'p' => 'Client portals with secure logins, private documents and project dashboards, built around how your firm already works.' ),
+		array( 'big' => 'SEO',         'p' => 'Technical SEO built into every build: fast pages, clean markup, structured data and a sitemap ready for Google and Bing.' ),
 	);
 }
 
 /**
- * FAQs. Also feeds the FAQPage schema in inc/seo.php.
+ * FAQs. Also feeds the FAQPage schema in inc/schema.php.
  *
  * @return array<int,array{q:string,a:string}>
  */

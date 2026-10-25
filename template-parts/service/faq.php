@@ -1,7 +1,7 @@
 <?php
 /**
  * Questions on a service page, first one open. Args: faqs (array of q/a).
- * The same list feeds the page's FAQPage schema in inc/seo.php.
+ * The same list feeds the page's FAQPage schema in inc/schema.php.
  *
  * @package JarralDigital
  */

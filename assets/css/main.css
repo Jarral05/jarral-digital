@@ -219,7 +219,8 @@ button{font-family:inherit}
 .step p{color:var(--ink-soft);font-size:15px;max-width:52ch}
 
 /* ---- results ---- */
-/* One card split three ways: the light-band twin of the hero's proof card. */
+/* One card split into cells: the light-band twin of the hero's proof card.
+   1 column on phones, 2 on tablets, 3 from 1024px. */
 .results{display:grid;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg)}
 .result{padding:22px 24px;border-top:1px solid var(--line)}
 .result:first-child{border-top:0}
@@ -344,14 +345,17 @@ button{font-family:inherit}
   .hero-stat dt{font-size:14px}
   .sec-head h2{font-size:34px}
   .work{grid-template-columns:repeat(2,1fr)}
-  .results{grid-template-columns:repeat(3,minmax(0,1fr))}
   .result{padding:26px 28px;border-top:0;border-left:1px solid var(--line)}
-  .result:first-child{border-left:0}
   .form-row{grid-template-columns:1fr 1fr}
   .foot-cols{grid-template-columns:repeat(3,minmax(0,1fr))}
   .foot-services{grid-column:auto}
   .est-steps,.est-out{padding:28px}
   .who h2{font-size:32px}
+}
+@media (min-width:768px) and (max-width:1023px){
+  .results{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .result:nth-child(odd){border-left:0}
+  .result:nth-child(n+3){border-top:1px solid var(--line)}
 }
 @media (min-width:1024px){
   .nav-links{display:flex;gap:28px;align-items:center}
@@ -370,6 +374,9 @@ button{font-family:inherit}
   .est-steps{padding:30px}
   .est-out{padding:30px;border-top:0;border-left:1px solid var(--line-dark)}
   .work{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .results{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .result:nth-child(3n+1){border-left:0}
+  .result:nth-child(n+4){border-top:1px solid var(--line)}
   .result .big{font-size:40px}
   .who h2{font-size:36px}
   .foot-cols{grid-template-columns:1.8fr 1.3fr 1fr 1fr;gap:40px}

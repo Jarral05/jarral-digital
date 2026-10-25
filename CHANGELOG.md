@@ -3,6 +3,23 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.2] - 2026-10-24
+
+### Changed
+- **Homepage "Built around your workflow" now has six cards instead of
+  three**: WordPress (custom themes and plugins), MERN apps, AI software,
+  Automation, Portals and SEO. They replace Forms, Sites and Portals; forms
+  and PDFs are now covered under Automation. The cards describe what is
+  built, not client results.
+- The cards sit in a 3x2 grid on desktop and two columns on tablets (768 to
+  1023px), so longer words such as "Automation" stay inside their cell. Phones
+  keep one column. No other section or page changes; the service pages are
+  untouched.
+
+### Fixed
+- Two code comments still pointed to the removed `inc/seo.php`; they now
+  name `inc/schema.php`.
+
 ## [1.8.1] - 2026-10-23
 
 ### Fixed

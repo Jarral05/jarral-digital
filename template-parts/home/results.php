@@ -1,6 +1,7 @@
 <?php
 /**
- * Homepage: service outcomes, without unverified numerical client claims.
+ * Homepage: what I build, from jd_get_results(). Capabilities, not client
+ * results; those belong in case studies.
  *
  * @package JarralDigital
  */
