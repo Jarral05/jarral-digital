@@ -3,6 +3,14 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.7] - 2026-10-27
+
+### Added
+- The case study page's "Project facts" card shows **Year** and **Built
+  with** rows, after Client and Work, when those fields are filled in
+  (Jarral Projects 1.2.5). An empty field shows no row. No other change to
+  the template or its styles.
+
 ## [1.8.6] - 2026-10-26
 
 ### Added

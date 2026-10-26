@@ -16,6 +16,8 @@ while ( have_posts() ) :
 
 	$jd_type  = get_post_meta( get_the_ID(), '_jd_client_type', true );
 	$jd_url   = get_post_meta( get_the_ID(), '_jd_live_url', true );
+	$jd_year  = get_post_meta( get_the_ID(), '_jd_year', true );
+	$jd_stack = get_post_meta( get_the_ID(), '_jd_stack', true );
 	$jd_terms = get_the_terms( get_the_ID(), 'jd_service_type' );
 	$jd_terms = is_array( $jd_terms ) ? wp_list_pluck( $jd_terms, 'name' ) : array();
 	?>
@@ -53,6 +55,12 @@ while ( have_posts() ) :
 								<?php endif; ?>
 								<?php if ( $jd_terms ) : ?>
 									<div class="factrow"><dt>Work</dt><dd><?php echo esc_html( implode( ', ', $jd_terms ) ); ?></dd></div>
+								<?php endif; ?>
+								<?php if ( $jd_year ) : ?>
+									<div class="factrow"><dt>Year</dt><dd><?php echo esc_html( $jd_year ); ?></dd></div>
+								<?php endif; ?>
+								<?php if ( $jd_stack ) : ?>
+									<div class="factrow"><dt>Built with</dt><dd><?php echo esc_html( $jd_stack ); ?></dd></div>
 								<?php endif; ?>
 								<?php if ( $jd_url ) : ?>
 									<div class="factrow"><dt>Live site</dt><dd><a href="<?php echo esc_url( $jd_url ); ?>" rel="noopener nofollow" target="_blank"><?php echo esc_html( wp_parse_url( $jd_url, PHP_URL_HOST ) ); ?><span aria-hidden="true"> &#8599;</span></a></dd></div>
