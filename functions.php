@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit; // Block direct access to this file.
 
-define( 'JD_VERSION', '1.8.4' );
+define( 'JD_VERSION', '1.8.5' );
 define( 'JD_DIR', get_template_directory() );
 define( 'JD_URI', get_template_directory_uri() );
 

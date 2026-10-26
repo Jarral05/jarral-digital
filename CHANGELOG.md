@@ -3,6 +3,24 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.5] - 2026-10-26
+
+### Fixed
+- **After sending the contact form, the page jumped to the top and then
+  glided down to the thank-you message.** `html{scroll-behavior:smooth}`
+  also animates the browser's own scroll to the URL fragment, so returning
+  to `?jdf=sent#contact` started at the top of the page.
+  - Smooth scrolling is now switched on only after the page has loaded:
+    `main.js` adds `.smooth-scroll` to `<html>`, and the CSS rule targets
+    `html.smooth-scroll`. Arriving at any anchor, including the form's
+    return, lands on it at once. Clicks on in-page links still scroll
+    smoothly.
+  - Smooth scrolling is now skipped for visitors whose system asks for
+    reduced motion (`prefers-reduced-motion`).
+- Checked in headless Chrome by loading a page at `?jdf=sent#contact`. The
+  old rule sat at scrollY 0 (the top); the new one was at the form from the
+  first sample.
+
 ## [1.8.4] - 2026-10-26
 
 ### Fixed

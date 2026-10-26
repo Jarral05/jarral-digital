@@ -1,7 +1,8 @@
 /**
  * Jarral Digital - front-end behaviour.
  *
- * Three things only: the mobile drawer, the estimator, the work filter.
+ * The mobile drawer, the estimator, the work filter, and switching on
+ * smooth scrolling once the page has loaded.
  * No framework, no dependencies, no build step. Roughly 3KB.
  */
 (function () {
@@ -350,6 +351,20 @@
 			var open = t.getAttribute('aria-expanded') === 'true';
 			t.setAttribute('aria-expanded', open ? 'false' : 'true');
 			panel.classList.toggle('is-open', !open);
+		});
+	});
+
+	/* ------------------------------------------------------------------
+	   Smooth scrolling, switched on after load
+	   ------------------------------------------------------------------ */
+	/* Set in the stylesheet, smooth scrolling also animated every arrival at
+	   an anchor: coming back from the contact form to ?jdf=sent#contact
+	   started at the top of the page and glided down to the thank-you
+	   message. Turned on only once the page has loaded, the browser lands on
+	   the anchor directly and in-page links still scroll smoothly. */
+	window.addEventListener('load', function () {
+		requestAnimationFrame(function () {
+			document.documentElement.classList.add('smooth-scroll');
 		});
 	});
 })();

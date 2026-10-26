@@ -25,7 +25,11 @@
   --font-body:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI Variable Text","Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:70px}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:70px}
+/* Smooth only after load (main.js adds the class), so arriving at an anchor
+   such as the form's ?jdf=sent#contact lands on it instead of gliding down
+   from the top. Skipped for visitors who ask for reduced motion. */
+@media (prefers-reduced-motion:no-preference){html.smooth-scroll{scroll-behavior:smooth}}
 body{font-family:var(--font-body);font-size:16px;line-height:1.65;color:var(--ink);background:var(--bone);-webkit-font-smoothing:antialiased}
 h1,h2,h3{font-family:var(--font-head);line-height:1.12;letter-spacing:-0.02em}
 a{color:inherit} img{max-width:100%;display:block}
