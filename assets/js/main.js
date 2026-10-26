@@ -252,7 +252,9 @@
 			else { navEl.classList.remove('jd-stuck'); }
 		};
 		window.addEventListener('scroll', onScroll, { passive: true });
-		onScroll();
+		// On the next frame, not straight away: reading scrollY while the
+		// page is still building forced an early layout (267 ms in Lighthouse).
+		requestAnimationFrame(onScroll);
 	}
 
 	/* ------------------------------------------------------------------

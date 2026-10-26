@@ -3,6 +3,25 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.6] - 2026-10-26
+
+### Added
+- **`inc/indexing.php`: the Blog page and the `/work/` archive are noindexed
+  while they list nothing.** They become indexable automatically once the
+  first post or project is published; the check reads the page's own query,
+  so there is no setting to change.
+  - Uses `rank_math/frontend/robots` on the live site, so links stay
+    followed.
+  - Falls back to core's `wp_robots` when Rank Math is inactive. Rank Math
+    removes core's robots filters, so the tag is never printed twice.
+  - Tested on the QA install: 12 checks covering empty and non-empty `/work/`
+    and Blog, plus the front page, About and search left untouched.
+
+### Fixed
+- **Forced reflow during page load** (267 ms in Lighthouse): the sticky
+  header's first `scrollY` check now runs on the next animation frame
+  instead of straight away.
+
 ## [1.8.5] - 2026-10-26
 
 ### Fixed
