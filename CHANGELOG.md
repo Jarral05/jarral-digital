@@ -3,6 +3,29 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.3] - 2026-10-26
+
+### Fixed
+- **The owner's login name leaked in three places**, despite the existing
+  author-enumeration block. Found on the live site:
+  - `/?author=2` redirected to `/author/<username>/`. The block in
+    `inc/security.php` ran at `template_redirect` priority 10, after core's
+    `redirect_canonical()` had already sent that redirect. It now runs at
+    priority 1, so every `?author=N` goes to the homepage.
+  - oEmbed data (`/wp-json/oembed/1.0/embed`) gave the author archive URL,
+    which contains the username, as `author_url`.
+  - The archive itself, `/author/<username>/`, was public.
+- The account selected in Customize → Jarral Digital → "Mohsin Jarral's
+  author account" now has its author link pointed at `/about/` through the
+  `author_link` filter. That covers oEmbed, schema and any plugin that asks
+  WordPress for the author URL. Its old archive address 301-redirects to
+  `/about/`.
+- Guest authors keep their own archive and schema link, as before.
+- Tested on the QA install: 11 checks. The old code fails 8 of them, the
+  same leaks seen live. The existing SEO (104), Customizer (9) and editor
+  tests still pass.
+- No visible page or design changes.
+
 ## [1.8.2] - 2026-10-24
 
 ### Changed

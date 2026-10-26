@@ -66,7 +66,30 @@ function jd_block_author_scan() {
 		exit;
 	}
 }
-add_action( 'template_redirect', 'jd_block_author_scan' );
+// Priority 1: core's redirect_canonical() runs at 10 and would first turn
+// ?author=2 into /author/<username>/, leaking the name anyway.
+add_action( 'template_redirect', 'jd_block_author_scan', 1 );
+
+/**
+ * The owner's author archive has their login name in its URL
+ * (/author/<username>/), and WordPress links to it from oEmbed data and
+ * schema. Point those links at the About page and send the old address
+ * there too. Guest authors keep their own archive.
+ */
+function jd_owner_author_link( $link, $author_id ) {
+	$owner = (int) get_theme_mod( 'jd_author_user', 0 );
+	return $owner && (int) $author_id === $owner ? home_url( '/about/' ) : $link;
+}
+add_filter( 'author_link', 'jd_owner_author_link', 10, 2 );
+
+function jd_owner_author_archive() {
+	$owner = (int) get_theme_mod( 'jd_author_user', 0 );
+	if ( $owner && is_author() && (int) get_queried_object_id() === $owner ) {
+		wp_safe_redirect( home_url( '/about/' ), 301 );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'jd_owner_author_archive', 1 );
 
 /**
  * Hide the REST API user list from logged-out visitors.
