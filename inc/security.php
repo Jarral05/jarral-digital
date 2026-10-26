@@ -54,6 +54,17 @@ add_filter(
 );
 
 /**
+ * xmlrpc_enabled only switches off the methods that need a login. Pingbacks
+ * stay open without one and let anyone make this server request other URLs,
+ * which is used to attack third-party sites.
+ */
+function jd_remove_pingback_methods( $methods ) {
+	unset( $methods['pingback.ping'], $methods['pingback.extensions.getPingbacks'] );
+	return $methods;
+}
+add_filter( 'xmlrpc_methods', 'jd_remove_pingback_methods' );
+
+/**
  * Block author enumeration (/?author=1 reveals your admin username).
  * An attacker who knows the username only needs the password.
  */
@@ -94,20 +105,23 @@ add_action( 'template_redirect', 'jd_owner_author_archive', 1 );
 /**
  * Hide the REST API user list from logged-out visitors.
  * /wp-json/wp/v2/users leaks usernames by default.
+ *
+ * The routes are removed rather than matched by URL: WordPress matches
+ * routes case-insensitively, so a string check on the URL was bypassed by
+ * /wp-json/wp/v2/Users. Signed-in users (the block editor) keep them.
  */
-function jd_restrict_user_endpoint( $result ) {
-	if ( ! empty( $result ) ) {
-		return $result;
+function jd_hide_user_endpoints( $endpoints ) {
+	if ( is_user_logged_in() ) {
+		return $endpoints;
 	}
-	if ( ! is_user_logged_in() ) {
-		$route = isset( $GLOBALS['wp']->query_vars['rest_route'] ) ? $GLOBALS['wp']->query_vars['rest_route'] : '';
-		if ( false !== strpos( $route, '/wp/v2/users' ) ) {
-			return new WP_Error( 'rest_forbidden', __( 'Not available.', 'jarral-digital' ), array( 'status' => 401 ) );
+	foreach ( array_keys( $endpoints ) as $route ) {
+		if ( 0 === stripos( $route, '/wp/v2/users' ) ) {
+			unset( $endpoints[ $route ] );
 		}
 	}
-	return $result;
+	return $endpoints;
 }
-add_filter( 'rest_authentication_errors', 'jd_restrict_user_endpoint' );
+add_filter( 'rest_endpoints', 'jd_hide_user_endpoints' );
 
 /**
  * Generic login error text.
@@ -133,6 +147,12 @@ function jd_security_headers( $headers ) {
 	$headers['X-Frame-Options']        = 'SAMEORIGIN';
 	$headers['Referrer-Policy']        = 'strict-origin-when-cross-origin';
 	$headers['Permissions-Policy']     = 'geolocation=(), microphone=(), camera=(), interest-cohort=()';
+	// Browsers remember to use HTTPS for a year, so a first visit typed as
+	// http:// cannot be intercepted before the redirect. No includeSubDomains:
+	// other subdomains (mail, future tools) are not ours to commit.
+	if ( is_ssl() ) {
+		$headers['Strict-Transport-Security'] = 'max-age=31536000';
+	}
 	return $headers;
 }
 add_filter( 'wp_headers', 'jd_security_headers' );

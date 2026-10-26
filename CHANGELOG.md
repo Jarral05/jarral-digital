@@ -3,6 +3,28 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.4] - 2026-10-26
+
+### Fixed
+- **The REST user list could still be read as `/wp-json/wp/v2/Users`.**
+  WordPress matches REST routes case-insensitively, but the block compared
+  the URL case-sensitively. Confirmed live: a capital U returned the owner's
+  ID, display name and login slug. The `/wp/v2/users` routes are now removed
+  from the route table for logged-out requests (`rest_endpoints`), so every
+  spelling returns 404. Signed-in users, including the block editor, keep
+  them.
+- **XML-RPC pingbacks were still open.** `xmlrpc_enabled` only switches off
+  methods that need a login; `pingback.ping` stayed reachable and can make
+  the server request other sites. Both pingback methods are now removed.
+
+### Added
+- `Strict-Transport-Security: max-age=31536000` on HTTPS responses, so
+  browsers use HTTPS for a year after their first visit. Subdomains are not
+  included.
+- Tested on the QA install: 29 hardening checks, together with Jarral Forms
+  1.4.5. The 1.8.3 / 1.4.4 code fails 16 of them. The author-leak (11), form
+  cache (16), SEO (104), Customizer (9) and editor suites still pass.
+
 ## [1.8.3] - 2026-10-26
 
 ### Fixed
