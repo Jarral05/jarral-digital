@@ -89,7 +89,7 @@ function jd_service_catalog() {
 			'faqs'     => array(
 				array( 'q' => 'How long does a WordPress site take?', 'a' => 'A standard site is two to three weeks from an agreed scope. Larger builds are split into milestones.' ),
 				array( 'q' => 'Can I edit the site myself?', 'a' => 'Yes. Pages are built for the WordPress block editor, so you can change text and images without touching code.' ),
-				array( 'q' => 'Do you use page builders?', 'a' => 'No. The theme is hand-built, which keeps pages fast and leaves fewer plugins to update.' ),
+				array( 'q' => 'Do you use page builders?', 'a' => 'Not on custom builds. The theme is hand-built, which keeps pages fast and leaves fewer plugins to update. Some earlier projects, such as Atlanto and CKTC, used Elementor.' ),
 				array( 'q' => 'What if I need changes after launch?', 'a' => 'Thirty days of fixes are included with every project. After that, a care plan covers ongoing changes.' ),
 			),
 			'form'     => array(

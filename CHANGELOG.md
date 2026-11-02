@@ -3,6 +3,14 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.8] - 2026-11-02
+
+### Changed
+- WordPress development FAQ, "Do you use page builders?": the answer now says
+  "Not on custom builds" and names the earlier Elementor projects, so it no
+  longer conflicts with the Atlanto and CKTC case studies. The FAQ schema uses
+  the same text. No layout or style change.
+
 ## [1.8.7] - 2026-10-27
 
 ### Added
