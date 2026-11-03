@@ -14,15 +14,36 @@ $jd_projects = new WP_Query(
 		'post_type'      => 'jd_project',
 		'posts_per_page' => 6,
 		'no_found_rows'  => true,
+		// This section says these are builds for firms, and demo apps are not.
+		// They stay on /work/, under their own filter.
+		'tax_query'      => array(
+			array(
+				'taxonomy' => 'jd_service_type',
+				'field'    => 'slug',
+				'terms'    => 'demo-apps',
+				'operator' => 'NOT IN',
+			),
+		),
 	)
 );
 
-$jd_terms = get_terms(
+// Only the types among the cards shown. A button for any other type would
+// empty the grid, and 'include' with no IDs would list every type.
+$jd_term_ids = array();
+foreach ( $jd_projects->posts as $jd_project ) {
+	$jd_ids      = wp_get_post_terms( $jd_project->ID, 'jd_service_type', array( 'fields' => 'ids' ) );
+	$jd_term_ids = is_wp_error( $jd_ids ) ? $jd_term_ids : array_merge( $jd_term_ids, $jd_ids );
+}
+
+$jd_terms = $jd_term_ids ? get_terms(
 	array(
 		'taxonomy'   => 'jd_service_type',
+		'include'    => array_unique( $jd_term_ids ),
 		'hide_empty' => true,
 	)
-);
+) : array();
+
+$jd_has_more = (int) wp_count_posts( 'jd_project' )->publish > $jd_projects->post_count;
 ?>
 
 <section class="band" id="work">
@@ -58,6 +79,12 @@ $jd_terms = get_terms(
 				wp_reset_postdata();
 				?>
 			</div>
+
+			<?php if ( $jd_has_more ) : ?>
+				<p class="work-more">
+					<a class="btn btn-solid" href="<?php echo esc_url( get_post_type_archive_link( 'jd_project' ) ); ?>"><?php esc_html_e( 'View all projects', 'jarral-digital' ); ?><span aria-hidden="true"> &rarr;</span></a>
+				</p>
+			<?php endif; ?>
 		<?php else : ?>
 			<?php get_template_part( 'template-parts/work-empty' ); ?>
 		<?php endif; ?>

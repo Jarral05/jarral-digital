@@ -214,6 +214,7 @@ button{font-family:inherit}
     margin:0 -20px;padding:0 20px 6px;scroll-padding-inline:20px}
   .homepage .work-card{scroll-snap-align:start}
 }
+.homepage .work-more{margin-top:24px;text-align:center}
 
 /* ---- process ---- */
 .steps{border-top:1px solid var(--line)}
@@ -568,10 +569,9 @@ html{scroll-padding-top:76px}
 /* ==========================================================================
    MEGA MENU
 
-   Built as a disclosure, not a hover trick. It opens on hover with a pointer,
-   on click or Enter with a keyboard, and closes on Escape. Hover-only menus
-   are unusable on touch and invisible to keyboards, which is why the trigger
-   is a real <button> with aria-expanded.
+   Built as a disclosure, not a hover trick. It opens on click, tap or Enter
+   and closes on a second click, a click elsewhere, or Escape. It never opens
+   on hover, which is why the trigger is a real <button> with aria-expanded.
    ========================================================================== */
 
 /* The panel must be as wide as the header, not as wide as the word that

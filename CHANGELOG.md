@@ -3,6 +3,25 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.9] - 2026-11-03
+
+### Added
+- Homepage work section: a "View all projects" button to `/work/`, shown only
+  when there are more projects than the six on the homepage.
+
+### Changed
+- The Services mega menu opens only on click, tap or Enter, not on hover. It
+  closes on a second click, a click elsewhere, or Escape.
+- `/work/` intro now reads "Client websites, portals and automation for
+  professional services firms, plus demo apps that show what I can build."
+- Projects in the "Demo apps" Service Type (slug `demo-apps`) stay off the
+  homepage, whose text describes builds for firms. They still show on `/work/`.
+
+### Fixed
+- Homepage filter buttons only list the types among the cards shown, so a button
+  can no longer empty the grid.
+- Clicking the empty space in an open mega menu no longer closes it.
+
 ## [1.8.8] - 2026-11-02
 
 ### Changed

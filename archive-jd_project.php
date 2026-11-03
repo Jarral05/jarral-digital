@@ -29,7 +29,7 @@ $jd_terms   = $jd_is_type ? array() : get_terms(
 				? array( array( __( 'Work', 'jarral-digital' ), get_post_type_archive_link( 'jd_project' ) ), array( single_term_title( '', false ) ) )
 				: array( array( __( 'Work', 'jarral-digital' ) ) ),
 			'title'  => $jd_is_type ? single_term_title( '', false ) : __( 'Recent projects', 'jarral-digital' ),
-			'lede'   => $jd_is_type ? wp_strip_all_tags( term_description() ) : __( 'Websites, portals and automation built for professional services firms across the US, UK, Europe and the Gulf.', 'jarral-digital' ),
+			'lede'   => $jd_is_type ? wp_strip_all_tags( term_description() ) : __( 'Client websites, portals and automation for professional services firms, plus demo apps that show what I can build.', 'jarral-digital' ),
 		)
 	);
 	?>

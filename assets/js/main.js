@@ -260,9 +260,9 @@
 	/* ------------------------------------------------------------------
 	   Mega menu
 
-	   Opens on hover for a mouse, on click or Enter for a keyboard, and
-	   closes on Escape with focus returned to the trigger. Hover alone is
-	   not an interface: it is invisible to keyboards and unusable on touch.
+	   Opens on click, tap or Enter, never on hover, so it doesn't drop over
+	   the page when the pointer crosses the header. Closes on a second click,
+	   a click elsewhere, or Escape with focus returned to the trigger.
 	   ------------------------------------------------------------------ */
 	var megas = [].slice.call(document.querySelectorAll('.nav-list .jd-has-mega'));
 
@@ -291,29 +291,14 @@
 			var panel  = li.querySelector('.jd-mega');
 			if (!toggle || !panel) { return; }
 
-			var hoverTimer = null;
-
 			toggle.addEventListener('click', function () {
 				setOpen(li, toggle.getAttribute('aria-expanded') !== 'true');
 			});
 
-			// Hover, with a short delay on leaving so the pointer can travel
-			// from the trigger down into the panel without it snapping shut.
-			li.addEventListener('mouseenter', function () {
-				if (window.matchMedia('(hover: hover)').matches) {
-					clearTimeout(hoverTimer);
-					setOpen(li, true);
-				}
-			});
-			li.addEventListener('mouseleave', function () {
-				if (window.matchMedia('(hover: hover)').matches) {
-					hoverTimer = setTimeout(function () { setOpen(li, false); }, 180);
-				}
-			});
-
-			// Leaving the whole item by keyboard closes it.
+			// Leaving the whole item by keyboard closes it. A click on the panel's
+			// empty space has no relatedTarget and must leave it open.
 			li.addEventListener('focusout', function (e) {
-				if (!li.contains(e.relatedTarget)) { setOpen(li, false); }
+				if (e.relatedTarget && !li.contains(e.relatedTarget)) { setOpen(li, false); }
 			});
 		});
 
