@@ -100,6 +100,16 @@ try {
 	$merged = jd_schema_graph($legacy);
 	check( home_url('/#organization') === $merged['WebSite']['publisher']['@id'], 'Personal publisher settings still yield one business publisher' );
 	check( isset($merged['publisher']['logo']), 'Mixed Person/Organization publisher retains its configured logo' );
+	visit_post($ids['privacy-policy']);
+	$url = get_permalink();
+	$plain = jd_schema_graph( array(
+		'WebPage' => array( '@type' => 'WebPage', '@id' => $url.'#webpage', 'url' => $url ),
+		'ProfilePage' => array( '@type' => array('Person'), '@id' => home_url('/about/'), 'name' => 'Mohsin Jarral' ),
+		'richSnippet' => array( '@type' => 'Article', '@id' => $url.'#richSnippet', 'author' => array('@id' => home_url('/about/')), 'mainEntityOfPage' => array('@id' => $url.'#webpage') ),
+	) );
+	check( 0 === count(nodes_of_type($plain,'Article')), 'Plain pages are not articles' );
+	check( 1 === count(nodes_of_type($plain,'Person')) && home_url('/#person') === nodes_of_type($plain,'Person')[0]['@id'], 'Plain pages keep only the founder Person' );
+	check( 1 === count(nodes_of_type($plain,'WebPage')), 'Plain pages keep their WebPage' );
 	visit_post($ids['qa-article']);
 	set_theme_mod('jd_author_user',1);
 	$article = nodes_of_type(jd_schema_graph(),'Article')[0];

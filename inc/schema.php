@@ -146,7 +146,9 @@ function jd_schema_graph( $data = array() ) {
 		// Respect a custom canonical already used by Rank Math's page entity.
 		$url = $data[ $page_key ]['url'];
 	}
-	$page_author = is_singular( 'post' ) ? jd_post_author( get_queried_object_id() ) : ( ( $service || is_front_page() || is_page( 'about' ) ) ? $person : array() );
+	// Rank Math's default gives every page an Article and a second author Person; pages are neither.
+	$is_page_entity = is_page() || is_front_page();
+	$page_author = is_singular( 'post' ) ? jd_post_author( get_queried_object_id() ) : ( $is_page_entity ? $person : array() );
 	if ( $page_author && isset( $data['ProfilePage'] ) && jd_schema_is( $data['ProfilePage'], 'Person' ) ) {
 		if ( ! empty( $data['ProfilePage']['@id'] ) ) {
 			$aliases[ $data['ProfilePage']['@id'] ] = $page_author['@id'];
@@ -245,7 +247,7 @@ function jd_schema_graph( $data = array() ) {
 		$data[ $page_key ]['mainEntity'] = array( '@id' => $person['@id'] );
 	}
 	$article_types = array( 'Article', 'BlogPosting', 'NewsArticle' );
-	if ( $service || is_front_page() || is_page( 'about' ) ) {
+	if ( $is_page_entity ) {
 		foreach ( $data as $key => $node ) {
 			if ( jd_schema_is( $node, $article_types ) ) {
 				if ( ! empty( $node['@id'] ) ) {

@@ -3,6 +3,14 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.10] - 2026-11-04
+
+### Fixed
+- Schema: Contact, Process, Sitemap, Privacy Policy, Terms of Service and Cookie
+  Policy no longer carry Rank Math's default `Article`, or the second author
+  `Person` that only that `Article` used. They keep their `WebPage`, breadcrumb
+  and founder `Person`. No visible change.
+
 ## [1.8.9] - 2026-11-03
 
 ### Added
