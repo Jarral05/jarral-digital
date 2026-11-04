@@ -139,6 +139,38 @@ function jd_get_about_facts() {
 }
 
 /**
+ * The text of the page for agencies.
+ *
+ * @return array<string,mixed>
+ */
+function jd_get_agency_offer() {
+	return array(
+		'lede'     => 'Extra development capacity for agencies. We build behind your brand, and your client deals only with you.',
+		'meta'     => array( 'Reply within 12 hours', 'Fixed quotes in writing', 'Start with one small job' ),
+		'heading'  => 'Work you can hand over',
+		'intro'    => 'For when your team is full, or a client asks for something you do not do in-house.',
+		'services' => array(
+			array( 'h' => 'Figma to Elementor', 'p' => 'Signed-off Figma files built as Elementor sites your client can edit.' ),
+			array( 'h' => 'Custom WordPress', 'p' => 'Custom themes, plugins, features and forms, built for the job.' ),
+			array( 'h' => 'WooCommerce', 'p' => 'Stores, checkout changes and custom product features.' ),
+			array( 'h' => 'AI automations', 'p' => 'Make, n8n and Zapier workflows that connect forms, CRMs and documents.' ),
+			array( 'h' => 'AI-built app rescue', 'p' => 'Apps started in Replit, Lovable and similar tools, taken from demo to ready for real users.' ),
+			array( 'h' => 'MERN and Python apps', 'p' => 'Custom web apps, dashboards and internal tools.' ),
+		),
+		'terms'    => array(
+			array( 'h' => 'Your brand, your client.', 'p' => 'We work behind your agency and never contact your client.' ),
+			array( 'h' => 'A fixed quote in writing.', 'p' => 'Scope and price are agreed before anything starts.' ),
+			array( 'h' => 'One small job first.', 'p' => 'Judge the work before you commit to more.' ),
+			array( 'h' => 'A handover you can use.', 'p' => 'You get the code and a recorded walkthrough.' ),
+		),
+		'form'     => array(
+			'h' => 'Send me a job to quote',
+			'p' => 'Tell me what the job is and when you need it. You will have a reply within twelve hours.',
+		),
+	);
+}
+
+/**
  * The partner shown on the About page.
  *
  * @return array<string,string>

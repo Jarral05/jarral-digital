@@ -3,6 +3,13 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.12] - 2026-11-04
+
+### Added
+- Template for a page for agencies (slug `agencies`): six services, how the work
+  runs, and an enquiry form tagged "Agency partnership". Create the page in
+  wp-admin to switch it on. No existing page changes.
+
 ## [1.8.11] - 2026-11-04
 
 ### Added
