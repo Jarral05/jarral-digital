@@ -30,7 +30,7 @@ $jd_sitemap = jd_published_page( 'sitemap' );
 						<?php endif; ?>
 					</span>
 				</a>
-				<p>An independent developer building websites, client portals and automation for professional services firms across the US, UK, Europe and the Gulf. You work with me directly, from the first message to launch.</p>
+				<p>A two-person studio building websites, client portals and automation for professional services firms across the US, UK, Europe and the Gulf. You work with me directly, from the first message to launch.</p>
 				<p class="foot-contact">
 					<a href="mailto:<?php echo esc_attr( jd_contact_email() ); ?>"><?php echo esc_html( jd_contact_email() ); ?></a>
 					<span>Replies within 12 hours</span>

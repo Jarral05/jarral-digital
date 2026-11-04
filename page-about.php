@@ -26,7 +26,7 @@ while ( have_posts() ) :
 				'crumbs' => jd_page_trail(),
 				'title'  => get_the_title(),
 				// The page's Excerpt, if one is set, replaces this line.
-				'lede'   => has_excerpt() ? get_the_excerpt() : 'The person who builds your project, how I work, and what I will tell you before you commit.',
+				'lede'   => has_excerpt() ? get_the_excerpt() : 'Who builds your project, how I work, and what I will tell you before you commit.',
 			)
 		);
 		?>
@@ -45,6 +45,28 @@ while ( have_posts() ) :
 				<div class="prose">
 					<?php echo jd_prepare_content( get_the_content() )['html']; // phpcs:ignore WordPress.Security.EscapeOutput -- the_content output, as the_content() prints it. ?>
 					<p><a href="<?php echo esc_url( jd_profile_links()[0] ); ?>">Connect with me on LinkedIn</a>.</p>
+
+					<?php $jd_partner = jd_get_partner(); ?>
+					<div class="about-partner">
+						<?php
+						get_template_part(
+							'template-parts/portrait',
+							null,
+							array(
+								'class'    => 'about-photo',
+								'mod'      => 'jd_partner_portrait',
+								'alt'      => $jd_partner['name'],
+								'initials' => 'DZ',
+								'hint'     => 'Add Daoud\'s photo in Customise → Jarral Digital',
+							)
+						);
+						?>
+						<div>
+							<h2><?php echo esc_html( $jd_partner['name'] ); ?></h2>
+							<p class="about-partner-role"><?php echo esc_html( $jd_partner['role'] ); ?></p>
+							<p><?php echo esc_html( $jd_partner['bio'] ); ?></p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>

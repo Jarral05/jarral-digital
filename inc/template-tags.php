@@ -139,6 +139,19 @@ function jd_get_about_facts() {
 }
 
 /**
+ * The partner shown on the About page.
+ *
+ * @return array<string,string>
+ */
+function jd_get_partner() {
+	return array(
+		'name' => 'Daoud Zubair',
+		'role' => 'Partner and developer',
+		'bio'  => 'Daoud is my brother and my partner at Jarral Digital. He works on coding and WordPress development, including Elementor builds, and we work on projects together.',
+	);
+}
+
+/**
  * Print an inline SVG icon from assets/icons/.
  *
  * Inline rather than <img> so the icon inherits currentColor and costs

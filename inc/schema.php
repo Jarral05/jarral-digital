@@ -160,6 +160,7 @@ function jd_schema_graph( $data = array() ) {
 		'name' => get_bloginfo( 'name' ), 'url' => home_url( '/' ),
 		'description' => get_bloginfo( 'description' ),
 		'founder' => array( '@id' => $person['@id'] ), 'areaServed' => jd_schema_markets(),
+		'member' => array( '@type' => 'Person', 'name' => jd_get_partner()['name'], 'jobTitle' => jd_get_partner()['role'], 'url' => home_url( '/about/' ) ),
 	) );
 	if ( empty( $business['address'] ) ) {
 		$business['address'] = array( '@type' => 'PostalAddress', 'addressCountry' => 'PK' );

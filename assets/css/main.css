@@ -979,6 +979,16 @@ html{scroll-padding-top:76px}
   .about-profile{display:block;position:sticky;top:96px}
   .about-profile .who-facts{margin-top:20px}
 }
+/* The partner's section, below the text. */
+.inner-page .about-partner{display:grid;grid-template-columns:120px minmax(0,1fr);gap:20px;align-items:start;margin-top:36px;padding-top:32px;border-top:1px solid var(--line)}
+.inner-page .prose .about-partner h2{margin:0 0 2px;padding:0;border:0}
+.inner-page .about-partner p{margin:0 0 10px}
+.inner-page .about-partner .about-partner-role{font-weight:600;color:var(--pine)}
+.inner-page .about-partner .about-photo{font-size:12px;line-height:1.35}
+.inner-page .about-partner .who-initials{font-size:36px}
+@media (min-width:901px){
+  .inner-page .about-partner{grid-template-columns:160px minmax(0,1fr);gap:28px}
+}
 
 /* ---- contact page ---- */
 .inner-page .contact-copy > .eyebrow{margin-bottom:14px}

@@ -3,6 +3,20 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.11] - 2026-11-04
+
+### Added
+- About page: a section for Daoud Zubair, Partner and developer, with his own
+  photo setting in Customise > Jarral Digital. Visitors see a "DZ" monogram until
+  a photo is uploaded.
+- Schema: the business now lists Daoud Zubair as a `member`. No visible change.
+
+### Changed
+- Homepage About section names Daoud as partner and now says "You work with the
+  people writing the code".
+- About page intro now begins "Who builds your project".
+- Footer now says "A two-person studio" instead of "An independent developer".
+
 ## [1.8.10] - 2026-11-04
 
 ### Fixed

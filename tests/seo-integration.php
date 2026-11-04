@@ -68,6 +68,7 @@ try {
 	$about = jd_schema_graph();
 	check( home_url( '/#person' ) === nodes_of_type( $about, 'AboutPage' )[0]['mainEntity']['@id'], 'About references founder' );
 	check( jd_profile_links() === nodes_of_type( $about, 'Person' )[0]['sameAs'], 'About uses supplied profile' );
+	check( jd_get_partner()['name'] === nodes_of_type( $about, 'ProfessionalService' )[0]['member']['name'], 'Business lists the partner as a member' );
 	$crumbs = nodes_of_type( $about, 'BreadcrumbList' )[0]['itemListElement'];
 	check( array( 'Home', 'About' ) === array_column( $crumbs, 'name' ), 'About breadcrumb matches visible trail' );
 	check( '' === jd_service_analysis_content(), 'Ordinary page editor analysis is untouched' );

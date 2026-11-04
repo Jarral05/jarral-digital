@@ -116,6 +116,27 @@ function jd_customize( $wp_customize ) {
 		)
 	);
 
+	$wp_customize->add_setting(
+		'jd_partner_portrait',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'absint',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Media_Control(
+			$wp_customize,
+			'jd_partner_portrait',
+			array(
+				'label'       => __( 'Daoud Zubair\'s photo', 'jarral-digital' ),
+				'description' => __( 'Shown beside his section on the About page. 800 x 1000 works best.', 'jarral-digital' ),
+				'section'     => 'jd_section',
+				'mime_type'   => 'image',
+			)
+		)
+	);
+
 	$author_choices = array( 0 => __( 'Select your account', 'jarral-digital' ) );
 	foreach ( get_users( array( 'fields' => array( 'ID', 'display_name', 'user_login' ), 'orderby' => 'display_name' ) ) as $user ) {
 		$author_choices[ $user->ID ] = $user->display_name . ' (' . $user->user_login . ')';
