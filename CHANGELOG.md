@@ -3,6 +3,12 @@
 All notable changes to this project.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.8.13] - 2026-11-05
+
+### Added
+- Page for agencies: the "MERN and Python apps" card links to the client portal
+  demo's page. Publish that page before installing this version.
+
 ## [1.8.12] - 2026-11-04
 
 ### Added

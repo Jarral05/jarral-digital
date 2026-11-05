@@ -984,6 +984,7 @@ html{scroll-padding-top:76px}
 .inner-page .agency-grid li{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:22px}
 .inner-page .agency-grid h3{font-family:var(--font-head);font-size:18px;font-weight:600;margin:0 0 6px}
 .inner-page .agency-grid p{margin:0;color:var(--ink-soft);font-size:15px;line-height:1.55}
+.inner-page .agency-grid a{color:var(--pine);font-weight:600;text-underline-offset:3px}
 .inner-page .agency-form-h{font-size:26px;font-weight:600;margin:0 0 8px}
 .inner-page .agency-form-p{margin:0 0 18px;color:var(--ink-soft)}
 .inner-page .agency-more{margin:22px 0 0}

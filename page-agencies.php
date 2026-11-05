@@ -44,7 +44,12 @@ while ( have_posts() ) :
 					<?php foreach ( $jd_offer['services'] as $jd_service ) : ?>
 						<li>
 							<h3><?php echo esc_html( $jd_service['h'] ); ?></h3>
-							<p><?php echo esc_html( $jd_service['p'] ); ?></p>
+							<p>
+								<?php echo esc_html( $jd_service['p'] ); ?>
+								<?php if ( ! empty( $jd_service['link'] ) ) : ?>
+									<a href="<?php echo esc_url( home_url( $jd_service['link']['path'] ) ); ?>"><?php echo esc_html( $jd_service['link']['text'] ); ?></a>
+								<?php endif; ?>
+							</p>
 						</li>
 					<?php endforeach; ?>
 				</ul>

@@ -155,7 +155,14 @@ function jd_get_agency_offer() {
 			array( 'h' => 'WooCommerce', 'p' => 'Stores, checkout changes and custom product features.' ),
 			array( 'h' => 'AI automations', 'p' => 'Make, n8n and Zapier workflows that connect forms, CRMs and documents.' ),
 			array( 'h' => 'AI-built app rescue', 'p' => 'Apps started in Replit, Lovable and similar tools, taken from demo to ready for real users.' ),
-			array( 'h' => 'MERN and Python apps', 'p' => 'Custom web apps, dashboards and internal tools.' ),
+			array(
+				'h'    => 'MERN and Python apps',
+				'p'    => 'Custom web apps, dashboards and internal tools.',
+				'link' => array(
+					'text' => 'See a working client portal demo.',
+					'path' => '/work/client-portal-demo/',
+				),
+			),
 		),
 		'terms'    => array(
 			array( 'h' => 'Your brand, your client.', 'p' => 'We work behind your agency and never contact your client.' ),
